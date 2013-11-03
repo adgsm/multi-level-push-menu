@@ -491,7 +491,7 @@ Full list of options is provided below.
     menuID: "multilevelpushmenu",                               // ID of <nav> element.
     wrapperClass: 'multilevelpushmenu_wrapper',                 // Wrapper CSS class.
     menuInactiveClass: 'multilevelpushmenu_inactive',           // CSS class for inactive wrappers.
-    menu: menu,                                                 // JS array of menu items (if markup not provided).
+    menu: arrMenu,                                                 // JS array of menu items (if markup not provided).
     menuWidth: 0,                                               // Wrapper width (integer, '%', 'px', 'em').
     menuHeight: 0,                                              // Menu height (integer, '%', 'px', 'em').
     backText: 'Back',                                           // Text for 'Back' menu item.
