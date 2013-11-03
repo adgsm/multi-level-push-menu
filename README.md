@@ -18,10 +18,10 @@ If you do not need support for older browsers (i.e. IE 8) I do recommend you to 
 ####Include the CSS
 multilevelpushmenu.css can be modified to fit website design
 
-FontAvesome
+FontAvesome (icons)
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css">
-Font I like
+Font I like (use any other you like)
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700&subset=latin,cyrillic-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
 Multi-Level-Push-Menu
@@ -33,6 +33,9 @@ Multi-Level-Push-Menu
 jQuery
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+Modernizr (needed for IE8)
+
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.js"></script>
 Multi-Level-Push-Menu
 
     <script src="jquery.multilevelpushmenu.min.js"></script>
