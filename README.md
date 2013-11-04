@@ -489,8 +489,9 @@ Full list of options is provided below.
 
 ### Options
 
-    container : $( '#menu' ),                                   // Holding container.
-    containersToPush : [ $( '#content1' ), $( '#content2' ) ],  // Array of objects to push/slide together with menu.
+    container: $( '#menu' ),                                   // Holding container.
+    containersToPush: [ $( '#content1' ), $( '#content2' ) ],  // Array of objects to push/slide together with menu.
+    collapsed: false,                                           // Initialize menu in collapsed/expanded mode
     menuID: "multilevelpushmenu",                               // ID of <nav> element.
     wrapperClass: 'multilevelpushmenu_wrapper',                 // Wrapper CSS class.
     menuInactiveClass: 'multilevelpushmenu_inactive',           // CSS class for inactive wrappers.

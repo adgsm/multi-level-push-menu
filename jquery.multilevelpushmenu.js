@@ -25,6 +25,7 @@
 				menu: menu,
 				menuWidth: 0,
 				menuHeight: 0,
+				collapsed: false,
 				backText: 'Back',
 				backItemClass: 'backItemClass',
 				backItemIcon: 'fa fa-angle-right',
@@ -51,13 +52,12 @@
 				    .prop( { "id" : settings.menuID, "className" : settings.wrapperClass } )
 				    .appendTo( settings.container );
 				createNestedDOMStructure( settings.menu, $mainWrapper );
-				sizeDOMelements();
 			}
 			function createNestedDOMStructure( menus, $wrapper ){
 				if( menus.level == undefined ) menus.level = 0;
 				$.each( menus, function(){
 					var $levelHolder = $( "<div />" )
-					    .attr( { "class" : "levelHolderClass", "data-level" : menus.level, "style" : "left: " + ((menus.level == 0) ? 0 : "-200%") } )
+					    .attr( { "class" : "levelHolderClass", "data-level" : menus.level, "style" : "left: " + (( menus.level == 0 && !settings.collapsed ) ? 0 : "-200%") } )
 					    .appendTo( $wrapper );
 					var extWidth = ( isValidDim( settings.menuWidth ) || ( isInt( settings.menuWidth ) && settings.menuWidth > 0 ) );
 					if( extWidth ) $levelHolder.width(settings.menuWidth);
@@ -101,13 +101,12 @@
 				if( $mainWrapper.length == 0 ) return false;
 				$mainWrapper.prop( { "id" : settings.menuID, "className" : settings.wrapperClass } );
 				updateNestedDOMStructure( $mainWrapper );
-				sizeDOMelements();
 			}
 			function updateNestedDOMStructure( $wrapper ){
 				if( $wrapper.level == undefined ) $wrapper.level = 0;
 				$.each( $wrapper, function(){
 					var $levelHolder = $( "<div />" )
-					    .attr( { "class" : "levelHolderClass", "data-level" : $wrapper.level, "style" : "left: " + (($wrapper.level == 0) ? 0 : "-200%") } )
+					    .attr( { "class" : "levelHolderClass", "data-level" : $wrapper.level, "style" : "left: " + (( $wrapper.level == 0 && !settings.collapsed ) ? 0 : "-200%") } )
 					    .appendTo( $wrapper );
 					var extWidth = ( isValidDim( settings.menuWidth ) || ( isInt( settings.menuWidth ) && settings.menuWidth > 0 ) );
 					if( extWidth ) $levelHolder.width(settings.menuWidth);
@@ -312,6 +311,17 @@
 				$container.height( maxHeight );
 			}
 
+			// Initialize menu in collapsed/expanded mode 
+			function startMode( mode ) {
+				if( mode ) {
+					$('#' + settings.menuID + ' div.levelHolderClass:first').find( 'ul' ).hide();
+					$('#' + settings.menuID + ' div.levelHolderClass:first').addClass( settings.menuInactiveClass );
+					$('#' + settings.menuID + ' div.levelHolderClass:first').stop().animate({
+						left : (( -1 ) * $('#' + settings.menuID + ' div.levelHolderClass:first').width() + settings.overlapWidth)
+					});
+				}
+			}
+
 			// Push container(s) of choice
 			function pushContainers( absMove ) {
 				if( settings.containersToPush == null ) return false;
@@ -334,6 +344,8 @@
 
 			// Initialize menu level push menu
 			var execute = ( options.menu != undefined ) ? createDOMStructure() : updateDOMStructure();
+			var sizeElements = sizeDOMelements();
+			var startMode = startMode( settings.collapsed );
 		});
 	}
 }( jQuery ));
