@@ -511,3 +511,7 @@ Full list of options is provided below.
 * IE8+
 * Android Browser 4.1.2
 * iOS Safari 7.0.1
+
+### License
+Licensed under the MIT license.
+http://www.opensource.org/licenses/mit-license.php
