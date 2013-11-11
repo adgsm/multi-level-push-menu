@@ -3,7 +3,8 @@
 ## jQuery Plugin inspired by [Codrops](http://tympanus.net/codrops/2013/08/13/multi-level-push-menu/) MultiLevelPushMenu implementation
 If you do not need older browsers supported (i.e. IE 8) I do recommend you to use Codrops implementation since it's based on CSS 3D Transforms and therefore has better preformances.
 
-###Demo / More Examples [multi-level-push-menu.make.rs](http://multi-level-push-menu.make.rs)
+###Simple Demo [multi-level-push-menu.make.rs](http://multi-level-push-menu.make.rs)
+More examples will be provided soon.
 
 ### Features
 * Multi-level menu support
@@ -491,22 +492,77 @@ Full list of options is provided below.
 
     container: $( '#menu' ),                                   // Holding container.
     containersToPush: [ $( '#content1' ), $( '#content2' ) ],  // Array of objects to push/slide together with menu.
-    collapsed: false,                                           // Initialize menu in collapsed/expanded mode
-    menuID: "multilevelpushmenu",                               // ID of <nav> element.
-    wrapperClass: 'multilevelpushmenu_wrapper',                 // Wrapper CSS class.
-    menuInactiveClass: 'multilevelpushmenu_inactive',           // CSS class for inactive wrappers.
-    menu: arrMenu,                                                 // JS array of menu items (if markup not provided).
-    menuWidth: 0,                                               // Wrapper width (integer, '%', 'px', 'em').
-    menuHeight: 0,                                              // Menu height (integer, '%', 'px', 'em').
-    backText: 'Back',                                           // Text for 'Back' menu item.
-    backItemClass: 'backItemClass',                             // CSS class for back menu item.
-    backItemIcon: 'fa fa-angle-right',                          // FontAvesome icon used for back menu item.
-    groupIcon: 'fa fa-angle-left',                              // FontAvesome icon used for menu items contaning sub-items.
-    mode: 'overlap',                                            // Menu sliding mode: overlap/cover.
-    overlapWidth: 40                                            // Width in px of menu wrappers overlap
+    collapsed: false,                                          // Initialize menu in collapsed/expanded mode
+    menuID: "multilevelpushmenu",                              // ID of <nav> element.
+    wrapperClass: 'multilevelpushmenu_wrapper',                // Wrapper CSS class.
+    menuInactiveClass: 'multilevelpushmenu_inactive',          // CSS class for inactive wrappers.
+    menu: arrMenu,                                             // JS array of menu items (if markup not provided).
+    menuWidth: 0,                                              // Wrapper width (integer, '%', 'px', 'em').
+    menuHeight: 0,                                             // Menu height (integer, '%', 'px', 'em').
+    backText: 'Back',                                          // Text for 'Back' menu item.
+    backItemClass: 'backItemClass',                            // CSS class for back menu item.
+    backItemIcon: 'fa fa-angle-right',                         // FontAvesome icon used for back menu item.
+    groupIcon: 'fa fa-angle-left',                             // FontAvesome icon used for menu items contaning sub-items.
+    mode: 'overlap',                                           // Menu sliding mode: overlap/cover.
+    overlapWidth: 40                                           // Width in px of menu wrappers overlap
+
+Full list of exposed metdods is provided below.
+
+### Methods
+
+    // Initialize menu
+    $('#menu').multilevelpushmenu('init')                         // Equivalent to $('#menu').multilevelpushmenu()
+    
+    // Collapse menu
+    $('#menu').multilevelpushmenu('collapse')                     // Full menu collapse
+    $('#menu').multilevelpushmenu('collapse', 1)                  // Collapse menu down to level 1 (0 is starting level)
+    $('#menu').multilevelpushmenu('collapse', $menuLevelObject)   // Collapse menu down to the level of $menuLevelObject
+    $('#menu').multilevelpushmenu('collapse', 'Devices')          // Collapse menu down to the level of $menuLevelObject with title 'Devices' (not really recommended since there could be many menu level objects with the same title; in such cases collasing will be unsuccessful)
+    
+    // Expand menu
+    $('#menu').multilevelpushmenu('expand')                     // Menu expand from fully collapsed mode to level 0
+    $('#menu').multilevelpushmenu('expand', $menuLevelObject)   // Expand menu up to the $menuLevelObject
+    $('#menu').multilevelpushmenu('expand', 'Devices')          // Expand menu up to the $menuLevelObject with title 'Devices' (not recommended since there could be many menu level objects with the same title; in such cases expanding will be unsuccessful)
+    When expand method is invoked, if menu was already expanded to some other menu level object it will first collapse to highest shared parent menu level and then expanded from that point to desired menu level.  
+    
+    // Menu expanded
+    $('#menu').multilevelpushmenu('menuexpanded', $menuLevelObject) // Check if menu level object is expanded (returns true/false) 
+    
+    // Active menu
+    $('#menu').multilevelpushmenu('activemenu')                 // Provides active menu level object or false if menu is fully collapsed 
+    
+    // Find menu(s) by title
+    $('#menu').multilevelpushmenu('findmenusbytitle', 'Devices')    // Provides collection of menu level objects matching provided menu title, or false if there is no match
+    
+    // Find path to root menu collection
+    $('#menu').multilevelpushmenu('pathtoroot', $menuLevelObject)   // Provides collection chain of menu level objects (root menu level object - given menu level object), or false in case of error
+    
+    // Find shared path or path differences in between 2 provided menus
+    $('#menu').multilevelpushmenu('comparepaths', $menuLevelObject1, $menuLevelObject2, bool) // Provides collection of shared menu level objects in between two menu level objects if bool is true, or differences collection if bool is false, or false if there is no match
+    
+    // Get/Set settings options
+    $('#menu').multilevelpushmenu('option', 'mode', 'cover')        // Get (if third parameter is not set) or Set selected multi-level-push-menu option
+
+Full list of events/callbacks is provided below.
+
+### Events/Callbacks
+
+    onCollapseMenuStart               // Menu collapse started
+    onCollapseMenuEnd                 // Menu collapse ended
+    onExpandMenuStart                 // Menu expand started
+    onExpandMenuEnd                   // Menu expand ended
+    onGroupItemClick                  // Click/touchstart menu item containing sub-items
+    onItemClick                       // Click/touchstart menu item which doesn't contain sub-items
+    onTitleItemClick                  // Title icon click/touchstart
+    onBackItemClick                   // Back item click/touchstart
+
+Provided argument for onCollapseMenuStart, onCollapseMenuEnd, onExpandMenuStart and onExpandMenuEnd callbacks is current settings options object.
+For onTitleItemClick and onBackItemClick callbacks provided arguments are respecively event object and menu level holder object.
+For onGroupItemClick and onItemClick callbacks provided arguments are respecively event object, menu level object and clicked item object.
 
 ### Browser Support / tested
 * Chrome
+* Midori
 * Firefox
 * Safari
 * IE8+

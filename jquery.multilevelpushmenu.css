@@ -9,7 +9,8 @@
 
 .multilevelpushmenu_wrapper .levelHolderClass {
 	position: absolute;
-	left: -100%;
+	margin-left: -100%;
+	left: 0;
 	top: 0;
 	background: #336ca6;
 	width: auto;
