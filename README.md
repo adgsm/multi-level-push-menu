@@ -3,8 +3,8 @@
 ## jQuery Plugin inspired by [Codrops](http://tympanus.net/codrops/2013/08/13/multi-level-push-menu/) MultiLevelPushMenu implementation
 If you do not need older browsers supported (i.e. IE 8) I do recommend you to use Codrops implementation since it's based on CSS 3D Transforms and therefore has better preformances.
 
-###Simple Demo [multi-level-push-menu.make.rs](http://multi-level-push-menu.make.rs)
-UPDATED! Documentation, examples and code samples.
+###UPDATED! [multi-level-push-menu.make.rs](http://multi-level-push-menu.make.rs)
+Documentation, examples and code samples.
 
 ### Features
 * Multi-level menu support
