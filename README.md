@@ -4,7 +4,7 @@
 If you do not need older browsers supported (i.e. IE 8) I do recommend you to use Codrops implementation since it's based on CSS 3D Transforms and therefore has better preformances.
 
 ###Simple Demo [multi-level-push-menu.make.rs](http://multi-level-push-menu.make.rs)
-More examples will be provided soon.
+UPDATED! Documentation, examples and code samples.
 
 ### Features
 * Multi-level menu support
@@ -12,6 +12,7 @@ More examples will be provided soon.
 * Push/Slide DOM elements of choice
 * Flexible, simple markup
 * JS Array input, if markup is not present
+* A number of exposed Options, Methods and Events
 * Cross-browser compatibility
 
 ### Usage
@@ -36,7 +37,7 @@ jQuery
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 Modernizr (needed for IE8)
 
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.js"></script>
+    <script type="text/javascript" src="//oss.maxcdn.com/libs/modernizr/2.6.2/modernizr.min.js"></script>
 Multi-Level-Push-Menu
 
     <script src="jquery.multilevelpushmenu.min.js"></script>
@@ -510,38 +511,85 @@ Full list of exposed metdods is provided below.
 
 ### Methods
 
-    // Initialize menu
-    $('#menu').multilevelpushmenu('init')                         // Equivalent to $('#menu').multilevelpushmenu()
-    
-    // Collapse menu
-    $('#menu').multilevelpushmenu('collapse')                     // Full menu collapse
-    $('#menu').multilevelpushmenu('collapse', 1)                  // Collapse menu down to level 1 (0 is starting level)
-    $('#menu').multilevelpushmenu('collapse', $menuLevelObject)   // Collapse menu down to the level of $menuLevelObject
-    $('#menu').multilevelpushmenu('collapse', 'Devices')          // Collapse menu down to the level of $menuLevelObject with title 'Devices' (not really recommended since there could be many menu level objects with the same title; in such cases collasing will be unsuccessful)
-    
-    // Expand menu
-    $('#menu').multilevelpushmenu('expand')                     // Menu expand from fully collapsed mode to level 0
-    $('#menu').multilevelpushmenu('expand', $menuLevelObject)   // Expand menu up to the $menuLevelObject
-    $('#menu').multilevelpushmenu('expand', 'Devices')          // Expand menu up to the $menuLevelObject with title 'Devices' (not recommended since there could be many menu level objects with the same title; in such cases expanding will be unsuccessful)
-    When expand method is invoked, if menu was already expanded to some other menu level object it will first collapse to highest shared parent menu level and then expanded from that point to desired menu level.  
-    
-    // Menu expanded
-    $('#menu').multilevelpushmenu('menuexpanded', $menuLevelObject) // Check if menu level object is expanded (returns true/false) 
-    
-    // Active menu
-    $('#menu').multilevelpushmenu('activemenu')                 // Provides active menu level object or false if menu is fully collapsed 
-    
-    // Find menu(s) by title
-    $('#menu').multilevelpushmenu('findmenusbytitle', 'Devices')    // Provides collection of menu level objects matching provided menu title, or false if there is no match
-    
-    // Find path to root menu collection
-    $('#menu').multilevelpushmenu('pathtoroot', $menuLevelObject)   // Provides collection chain of menu level objects (root menu level object - given menu level object), or false in case of error
-    
-    // Find shared path or path differences in between 2 provided menus
-    $('#menu').multilevelpushmenu('comparepaths', $menuLevelObject1, $menuLevelObject2, bool) // Provides collection of shared menu level objects in between two menu level objects if bool is true, or differences collection if bool is false, or false if there is no match
-    
-    // Get/Set settings options
-    $('#menu').multilevelpushmenu('option', 'mode', 'cover')        // Get (if third parameter is not set) or Set selected multi-level-push-menu option
+    /**
+     * Initialize menu
+     */
+    $('#menu').multilevelpushmenu();
+    // or
+    $('#menu').multilevelpushmenu('init');
+
+    /**
+     * Collapse menu
+     */
+    // Full collapse
+    $('#menu').multilevelpushmenu('collapse');
+
+    // Collapse menu down to level 1 (0 level represent root level expanded)
+    $('#menu').multilevelpushmenu('collapse', 1);
+
+    // Collapse menu down to the level of $menuLevelObject
+    $('#menu').multilevelpushmenu('collapse', $menuLevelObject);
+
+    // Collapse menu down to the level of menu level object with title 'Devices' (not really recommended since there could be many menu level objects with the same title; in such cases collasing will be unsuccessful)
+    $('#menu').multilevelpushmenu('collapse', 'Devices');
+
+    /**
+     * Expand menu
+     */
+    // Menu expand from fully collapsed mode to level 0
+    $('#menu').multilevelpushmenu('expand');
+
+    // Expand menu up to the $menuLevelObject
+    $('#menu').multilevelpushmenu('expand', $menuLevelObject);
+
+    // Expand menu up to the menu level object with title 'Devices' (not recommended since there could be many menu level objects with the same title; in such cases expanding will be unsuccessful)
+    $('#menu').multilevelpushmenu('expand', 'Devices');
+
+    /**
+     * Menu Expanded?
+     * Check if menu level object is already expanded (returns true/false)
+     */
+    $('#menu').multilevelpushmenu('menuexpanded', $menuLevelObject);
+
+    /**
+     * Active (last expanded) menu level
+     * Returns active menu level object, or false if menu is fully collapsed
+     */
+    $('#menu').multilevelpushmenu('activemenu');
+
+    /**
+     * Find menu level(s) by title
+     * Provides collection of menu level objects matching provided menu title, or false if there is no match
+     */
+    $('#menu').multilevelpushmenu('findmenusbytitle', 'Devices');
+
+    /**
+     * Find path to root of selected menu level object
+     * Provides chain collection of menu level objects (root menu level object to given menu level object), or false in case of error
+     */
+    $('#menu').multilevelpushmenu('pathtoroot', $menuLevelObject);
+
+    /**
+     * Find shared path or path differences of two given menu level objects
+     * Provides collection of shared menu level objects of two menu level objects if bool parameter is set to true, or collection of menu level objects representing differences if bool is false; or false if there is no match
+     */
+    $('#menu').multilevelpushmenu('comparepaths', $menuLevelObject1, $menuLevelObject2, bool);
+
+    // Shared path collection
+    $('#menu').multilevelpushmenu('comparepaths', $menuLevelObject1, $menuLevelObject2, true);
+
+    // Differences collection
+    $('#menu').multilevelpushmenu('comparepaths', $menuLevelObject1, $menuLevelObject2, false);
+
+    /**
+     * Get or Set plug-in options
+     * Get (if third parameter is not set) or Set selected plug-in option
+     */
+    // Get
+    $('#menu').multilevelpushmenu('option', 'mode');
+
+    // Set
+    $('#menu').multilevelpushmenu('option', 'mode', 'cover');
 
 Full list of events/callbacks is provided below.
 
@@ -556,9 +604,11 @@ Full list of events/callbacks is provided below.
     onTitleItemClick                  // Title icon click/touchstart
     onBackItemClick                   // Back item click/touchstart
 
-Provided argument for onCollapseMenuStart, onCollapseMenuEnd, onExpandMenuStart and onExpandMenuEnd callbacks is current settings options object.
-For onTitleItemClick and onBackItemClick callbacks provided arguments are respecively event object and menu level holder object.
-For onGroupItemClick and onItemClick callbacks provided arguments are respecively event object, menu level object and clicked item object.
+Provided argument for onCollapseMenuStart, onCollapseMenuEnd, onExpandMenuStart and onExpandMenuEnd callbacks is current options object.
+
+For onTitleItemClick and onBackItemClick callbacks provided arguments are respecively event object, menu level holder object and plug-in options object.
+
+For onGroupItemClick and onItemClick callbacks provided arguments are respecively event object, menu level object, clicked item object and plug-in options object.
 
 ### Browser Support / tested
 * Chrome

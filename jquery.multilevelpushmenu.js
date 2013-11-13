@@ -467,7 +467,7 @@
 							animatedEventCallback( expandingObjects , callbacks );
 						});
 					});
-					pushContainers( $baseLevelHolder.width() - instance.settings.overlapWidth );
+					var pushbm = ( !menuExpanded( $baseLevelHolder ) ) ? pushContainers( $baseLevelHolder.width() - instance.settings.overlapWidth ) : null;
 				} else {
 					if( typeof menuTitle == 'object' ) {
 						$selectedLevelHolder = menuTitle;
