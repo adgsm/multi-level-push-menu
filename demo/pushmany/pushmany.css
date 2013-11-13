@@ -1,0 +1,50 @@
+body {
+	margin: 0;
+	padding: 0;
+	background: #243342;
+}
+
+#pushobj {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	color: #fff;
+	background: #243342;
+	padding-left: 450px;
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 2em;
+}
+
+#pushthisobjalso {
+	position: absolute;
+	top: 150px;
+	left: 400px;
+	color: #000;
+	background: #c8ccd7;
+	padding: 20px;
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 2em;
+}
+
+#pushthisobjtoo {
+	position: absolute;
+	top: 250px;
+	left: 450px;
+	color: #fff;
+	background: #d13e1d;
+	padding: 20px;
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 2em;
+}
+
+#lazy {
+	position: absolute;
+	top: 350px;
+	left: 500px;
+	color: #fff;
+	background: #a1a8bb;
+	padding: 20px;
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 2em;
+}
