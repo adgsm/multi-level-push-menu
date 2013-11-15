@@ -1,5 +1,5 @@
 /**
- * jquery.multilevelpushmenu.js v2.0.0
+ * jquery.multilevelpushmenu.js v2.0.2
  *
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
@@ -260,7 +260,6 @@
 			function itemGroupAnchorClick( e, $levelHolder, $item ) {
 				if( $(instance).find( 'div.levelHolderClass' ).is(':animated') ) return false;
 				instance.settings.onGroupItemClick.apply(this, Array.prototype.slice.call([e, $levelHolder, $item, instance.settings]));
-				var ieShadowFilterDistortion;
 				stopEventPropagation(e);
 				expandMenu( $item.find( 'div:first' ) );
 			}
@@ -275,6 +274,7 @@
 			// Click event for items
 			function itemAnchorClick( e, $levelHolder, $item ) {
 				instance.settings.onItemClick.apply(this, Array.prototype.slice.call([e, $levelHolder, $item, instance.settings]));
+				stopEventPropagation(e);
 			}
 
 			// Sizing DOM elements per creation/update
