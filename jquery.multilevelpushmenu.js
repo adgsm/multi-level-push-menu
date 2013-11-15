@@ -1,5 +1,5 @@
 /**
- * jquery.multilevelpushmenu.js v2.0.2
+ * jquery.multilevelpushmenu.js v2.0.3
  *
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
