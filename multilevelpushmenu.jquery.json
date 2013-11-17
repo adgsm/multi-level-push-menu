@@ -8,14 +8,14 @@
         "push",
         "animation"
     ],
-    "version": "2.0.4",
+    "version": "2.0.5",
     "author": {
         "name": "adgsm",
         "url": "http://multi-level-push-menu.make.rs/humans.txt"
     },
     "maintainers": [
         {
-            "name": "Momcilo Dzunic",
+            "name": "Momčilo Džunić",
             "email": "it@make.rs",
             "url": "http://multi-level-push-menu.make.rs"
         }

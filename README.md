@@ -564,6 +564,12 @@ Full list of exposed metdods is provided below.
     $('#menu').multilevelpushmenu('findmenusbytitle', 'Devices');
 
     /**
+     * Find menu item(s) by name
+     * Provides collection of menu item objects matching provided name, or false if there is no match
+     */
+    $( '#menu' ).multilevelpushmenu( 'finditemsbyname' , 'Devices' );
+
+    /**
      * Find path to root of selected menu level object
      * Provides chain collection of menu level objects (root menu level object to given menu level object), or false in case of error
      */
@@ -590,6 +596,16 @@ Full list of exposed metdods is provided below.
 
     // Set
     $('#menu').multilevelpushmenu('option', 'mode', 'cover');
+
+    /**
+     * Add/Remove menu item(s) with sub-menus
+     * 
+     */
+    // Add
+    $('#menu').multilevelpushmenu( 'additems' , itemsArray , $addToMenu , position );
+
+    // Remove
+    $('#menu').multilevelpushmenu( 'removeitems' , items );
 
 Full list of events/callbacks is provided below.
 

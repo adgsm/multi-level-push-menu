@@ -1,5 +1,5 @@
 /**
- * jquery.multilevelpushmenu.js v2.0.3
+ * jquery.multilevelpushmenu.js v2.0.5
  *
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
@@ -79,6 +79,10 @@
 				findmenusbytitle: function () {
 					return findMenusByTitle.apply(this, Array.prototype.slice.call(arguments));
 				},
+				// Find item(s) by name
+				finditemsbyname: function () {
+					return findItemsByName.apply(this, Array.prototype.slice.call(arguments));
+				},
 				// Find path to root menu collection
 				pathtoroot: function () {
 					return pathToRoot.apply(this, Array.prototype.slice.call(arguments));
@@ -90,6 +94,14 @@
 				// Get/Set settings options
 				option: function () {
 					return manageOptions.apply(this, Array.prototype.slice.call(arguments));
+				},
+				// Add item(s)
+				additems: function () {
+					return addItems.apply(this, Array.prototype.slice.call(arguments));
+				},
+				// Remove item(s)
+				removeitems: function () {
+					return removeItems.apply(this, Array.prototype.slice.call(arguments));
 				}
 			};
 
@@ -117,13 +129,13 @@
 				$.each( menus, function(){
 					var $levelHolder = $( "<div />" )
 					    .attr( { "class" : "levelHolderClass", "data-level" : menus.level, "style" : "margin-left: " + (( menus.level == 0 && !instance.settings.collapsed ) ? 0 : "-200%") } )
-					    .appendTo( $wrapper );
-					var extWidth = ( isValidDim( instance.settings.menuWidth ) || ( isInt( instance.settings.menuWidth ) && instance.settings.menuWidth > 0 ) );
+					    .appendTo( $wrapper ),
+					    extWidth = ( isValidDim( instance.settings.menuWidth ) || ( isInt( instance.settings.menuWidth ) && instance.settings.menuWidth > 0 ) );
 					if( extWidth ) $levelHolder.width(instance.settings.menuWidth);
 					var $title = $( "<h2 />" )
 					    .text( this.title )
-					    .appendTo( $levelHolder );
-					var $titleIcon = $( "<i />" )
+					    .appendTo( $levelHolder ),
+					    $titleIcon = $( "<i />" )
 					    .prop( { "class" : "floatRight cursorPointer " + this.icon } )
 					    .prependTo( $title );
 					$titleIcon.bind( eventType ,  function(e){
@@ -133,27 +145,7 @@
 					var $itemGroup = $( "<ul />" )
 					    .appendTo( $levelHolder );
 					$.each(this.items, function(){
-						var $item = $( "<li />" )
-						    .appendTo( $itemGroup );
-						var $itemAnchor = $( "<a />" )
-						    .prop( { "href" : this.link } )
-						    .text( this.name )
-						    .appendTo( $item );
-						var $itemIcon = $( "<i />" )
-						    .prop( { "class" : "floatRight " + this.icon } )
-						    .prependTo( $itemAnchor );
-						if(this.items) {
-							$itemAnchor.bind( eventType , function(e){
-								itemGroupAnchorClick( e, $levelHolder, $item );
-							});
-							createItemGroupIcon( $itemAnchor );
-							this.items.level = menus.level + 1;
-							createNestedDOMStructure(this.items, $item);
-						} else {
-							$itemAnchor.bind( eventType , function(e){
-								itemAnchorClick( e, $levelHolder, $item );
-							});
-						}
+						createItem( this, $levelHolder , -1 );
 					})
 				});
 			}
@@ -170,8 +162,8 @@
 				$.each( $wrapper, function(){
 					var $levelHolder = $( "<div />" )
 					    .attr( { "class" : "levelHolderClass", "data-level" : $wrapper.level, "style" : "margin-left: " + (( $wrapper.level == 0 && !instance.settings.collapsed ) ? 0 : "-200%") } )
-					    .appendTo( $wrapper );
-					var extWidth = ( isValidDim( instance.settings.menuWidth ) || ( isInt( instance.settings.menuWidth ) && instance.settings.menuWidth > 0 ) );
+					    .appendTo( $wrapper ),
+					    extWidth = ( isValidDim( instance.settings.menuWidth ) || ( isInt( instance.settings.menuWidth ) && instance.settings.menuWidth > 0 ) );
 					if( extWidth ) $levelHolder.width(instance.settings.menuWidth);
 					var $title = $wrapper.children( 'h2' );
 					$title.appendTo( $levelHolder );
@@ -217,13 +209,13 @@
 						.find( '#' + instance.settings.menuID + ' div.levelHolderClass' )
 						.filter(function(){
 							return (($( this ).attr( 'data-level' ) > $levelHolder.attr( 'data-level' )) && (parseInt( $( this ).css( 'margin-left' ) ) >= 0) );
-						});
-					var $prevLevelHolders = instance.settings.container
+						}),
+						$prevLevelHolders = instance.settings.container
 						.find( '#' + instance.settings.menuID + ' div.levelHolderClass' )
 						.filter(function(){
 							return (($( this ).attr( 'data-level' ) <= $levelHolder.attr( 'data-level' )) && (parseInt( $( this ).css( 'margin-left' ) ) >= 0) );
-						});
-					var fullCollapse = ( $nextLevelHolders.length == 0 && $prevLevelHolders.length == 1 ) ? collapseMenu() : collapseMenu( parseInt( $levelHolder.attr( 'data-level' ) ) );
+						}),
+						fullCollapse = ( $nextLevelHolders.length == 0 && $prevLevelHolders.length == 1 ) ? collapseMenu() : collapseMenu( parseInt( $levelHolder.attr( 'data-level' ) ) );
 				}
 				$levelHolder.css( 'visibility' , 'visible' );
 				$levelHolder.find( '.' + instance.settings.backItemClass ).css( 'visibility' , 'visible' );
@@ -235,12 +227,12 @@
 			function createBackItem( $levelHolder ) {
 				var $backItem = $( "<div />" )
 				    .attr( { "class" : instance.settings.backItemClass } )
-				    .appendTo( $levelHolder );
-				var $backItemAnchor = $( "<a />" )
+				    .appendTo( $levelHolder ),
+				    $backItemAnchor = $( "<a />" )
 				    .prop( { "href" : "#" } )
 				    .text( instance.settings.backText )
-				    .appendTo( $backItem );
-				var $backItemIcon = $( "<i />" )
+				    .appendTo( $backItem ),
+				    $backItemIcon = $( "<i />" )
 				    .prop( { "class" : "floatRight " + instance.settings.backItemIcon } )
 				    .prependTo( $backItemAnchor );
 				$backItemAnchor.bind( eventType , function(e){
@@ -271,6 +263,36 @@
 					.prependTo( $itemAnchor );
 			}
 
+			// Create item DOM element
+			function createItem() {
+				var item = arguments[0],
+					$levelHolder = arguments[1],
+					position = arguments[2],
+					$itemGroup = $levelHolder.find( 'ul:first' ),
+					$item = $( "<li />" );
+					( position < ( $itemGroup.find( 'li' ).length ) && position >= 0 ) ? 
+						$item.insertBefore( $itemGroup.find( 'li' ).eq( position ) ) : $item.appendTo( $itemGroup );
+				    var $itemAnchor = $( "<a />" )
+				    .prop( { "href" : item.link } )
+				    .text( item.name )
+				    .appendTo( $item ),
+				    $itemIcon = $( "<i />" )
+				    .prop( { "class" : "floatRight " + item.icon } )
+				    .prependTo( $itemAnchor );
+				if(item.items) {
+					$itemAnchor.bind( eventType , function(e){
+						itemGroupAnchorClick( e, $levelHolder, $item );
+					});
+					createItemGroupIcon( $itemAnchor );
+					item.items.level = parseInt( $levelHolder.attr( 'data-level' ), 10 ) + 1;
+					createNestedDOMStructure(item.items, $item);
+				} else {
+					$itemAnchor.bind( eventType , function(e){
+						itemAnchorClick( e, $levelHolder, $item );
+					});
+				}
+			}
+
 			// Click event for items
 			function itemAnchorClick( e, $levelHolder, $item ) {
 				instance.settings.onItemClick.apply(this, Array.prototype.slice.call([e, $levelHolder, $item, instance.settings]));
@@ -279,28 +301,40 @@
 
 			// Sizing DOM elements per creation/update
 			function sizeDOMelements() {
-				var ieShadowFilterDistortion = ($('#' + instance.settings.menuID + ' div.levelHolderClass').first().css('filter').match(/DXImageTransform\.Microsoft\.Shadow/)) ? $('#' + instance.settings.menuID + ' div.levelHolderClass').first().get(0).filters.item("DXImageTransform.Microsoft.Shadow").strength : 0,
-					maxWidth = Math.max.apply( null,
-				        $('#' + instance.settings.menuID + ' div.levelHolderClass').map(function(){ return $(this).width(); }).get() ),
+				var forceWidth = arguments[0],
+					forceHeight = arguments[1],
+					filter = arguments[2],
+					ieShadowFilterDistortion = ($('#' + instance.settings.menuID + ' div.levelHolderClass').first().css('filter').match(/DXImageTransform\.Microsoft\.Shadow/)) ? $('#' + instance.settings.menuID + ' div.levelHolderClass').first().get(0).filters.item("DXImageTransform.Microsoft.Shadow").strength : 0,
+					maxWidth = ( forceWidth == undefined ) ? Math.max.apply( null,
+				        $('#' + instance.settings.menuID + ' div.levelHolderClass').map(function(){ return $(this).width(); }).get() ) : forceWidth,
 					maxLevel = Math.max.apply( null,
 				        $('#' + instance.settings.menuID + ' div.levelHolderClass').map(function(){ return $(this).attr( 'data-level' ); }).get() ),
 					maxExtWidth = maxWidth + maxLevel * ( instance.settings.overlapWidth + ieShadowFilterDistortion ),
-					maxHeight = Math.max.apply( null,
-				        $('#' + instance.settings.menuID + ' div.levelHolderClass').map(function(){ return $(this).height(); }).get() ),
+					maxHeight = ( forceHeight == undefined ) ? Math.max.apply( null,
+				        $('#' + instance.settings.menuID + ' div.levelHolderClass').map(function(){ return $(this).height(); }).get() ) : forceHeight,
 					extWidth = ( isValidDim( instance.settings.menuWidth ) || ( isInt( instance.settings.menuWidth ) && instance.settings.menuWidth > 0 ) ),
-					extHeight = ( isValidDim( instance.settings.menuHeight ) || ( isInt( instance.settings.menuHeight ) && instance.settings.menuHeight > 0 ) );
-				( extWidth ) ? $('#' + instance.settings.menuID + ' div.levelHolderClass').width(instance.settings.menuWidth) : $('#' + instance.settings.menuID + ' div.levelHolderClass').width( maxWidth );
+					extHeight = ( isValidDim( instance.settings.menuHeight ) || ( isInt( instance.settings.menuHeight ) && instance.settings.menuHeight > 0 ) ),
+					$objects = ( filter == undefined ) ? $('#' + instance.settings.menuID + ' div.levelHolderClass' ) : filter; 
+				( extWidth ) ? $objects.width(instance.settings.menuWidth) : $objects.width( maxWidth );
 				( extHeight ) ? $('#' + instance.settings.menuID).height(instance.settings.menuHeight) : $('#' + instance.settings.menuID).height( maxHeight );
 				$container.width( maxExtWidth );
 				$container.height( maxHeight );
 				fixLazyBrowsers();
+				instance.settings.menuWidth = maxWidth;
+				instance.settings.menuHeight = maxHeight;
 			}
 
 			// Hide wrappers in browsers that
 			// does not understand negative margin in %
 			// before DOM element got its dimensions
 			function fixLazyBrowsers() {
-				$('#' + instance.settings.menuID + ' div.levelHolderClass').each(function(){
+				var $baseLevelHolder = $('#' + instance.settings.menuID + ' div.levelHolderClass:first'),
+				$hiddenLevelHolders = instance.settings.container
+					.find( '#' + instance.settings.menuID + ' div.levelHolderClass' )
+					.filter(function(){
+						return ( ( $( this ).position().left < 0 || parseInt( $( this ).css( 'margin-left' ) ) < 0 ) && $( this ).attr( 'data-level' ) > $baseLevelHolder.attr( 'data-level' ) );
+					});
+				$hiddenLevelHolders.each(function(){
 					$( this ).css( 'margin-left' , (( $( this ).attr( 'data-level' ) == 0 && !instance.settings.collapsed ) ? 0 : (-2)*$( this ).width()) );
 				});
 			}
@@ -533,12 +567,18 @@
 				var menu = arguments[0],
 					$expandLevelHolder,
 					$activeLevelHolder = activeMenu(),
-					$sharedLevelHolders, collapseLevel;
+					$sharedLevelHolders, collapseLevel, $searchRes;
 				if( typeof menu == 'object' ) {
 					$expandLevelHolder = menu;
 				}
 				else if( typeof menu == 'string' ){
-					$expandLevelHolder = findMenusByTitle( menu ).eq( 0 );
+					$searchRes = findMenusByTitle( menu );
+					if($searchRes) {
+						$expandLevelHolder = $searchRes.eq( 0 );
+					}
+					else {
+						$.error( menu + ' menu level does not exist!' );
+					}
 				}
 				else {
 					$expandLevelHolder = $('#' + instance.settings.menuID + ' div.levelHolderClass:first');
@@ -566,6 +606,26 @@
 					});
 				if( $selectedLevelHolders.length > 0 ) {
 					returnValue = $selectedLevelHolders;
+					response = returnValue;
+				}
+				else {
+					returnValue = false;
+					response = returnValue;
+				}
+				return response;
+			}
+
+			// Find item(s) by Name
+			function findItemsByName() {
+				var itemName = arguments[0],
+					response,
+					$selectedItems = instance.settings.container
+					.find( '#' + instance.settings.menuID + ' div.levelHolderClass li' )
+					.filter(function(){
+						return ( ($( this ).children( 'a' ).text() == itemName ) );
+					});
+				if( $selectedItems.length > 0 ) {
+					returnValue = $selectedItems;
 					response = returnValue;
 				}
 				else {
@@ -637,6 +697,49 @@
 					returnValue = true;
 				}
 				return returnValue;
+			}
+
+			// Add item(s)
+			function addItems() {
+				var items = arguments[0],
+					$levelHolder = arguments[1],
+					position = arguments[2];
+				if( $levelHolder == undefined || typeof items != 'object' ) return false;
+				if( items.level == undefined ) items.level = parseInt( $levelHolder.attr( 'data-level' ) , 10 );
+				if( position == undefined ) position = 0;
+				var $itemGroup = $levelHolder.find( 'ul:first' );
+				$.each(items, function() {
+					if( this.name != undefined )
+						createItem( this, $levelHolder, position );
+				});
+				sizeDOMelements( instance.settings.menuWidth , undefined , $levelHolder.find( 'div.levelHolderClass' ) );
+				return $this;
+			}
+
+			// Remove item(s)
+			function removeItems() {
+				var $items = arguments[0];
+				if( $items == undefined || typeof $items != 'object' || $items.length == 0 ) return false;
+				$items.remove();
+				var $activeMenu = activeMenu();
+				if( $activeMenu.length == 1 ) {
+					$activeMenu.css( 'visibility' , 'visible' );
+					$activeMenu.find( '.' + instance.settings.backItemClass ).css( 'visibility' , 'visible' );
+					$activeMenu.find( 'ul' ).css( 'visibility' , 'visible' );
+					$activeMenu.removeClass( instance.settings.menuInactiveClass );
+					var widthDiff = $activeMenu.width() - instance.settings.menuWidth;
+					if( widthDiff != 0 ) {
+						var $visibleLevelHolders = instance.settings.container
+							.find( '#' + instance.settings.menuID + ' div.levelHolderClass' )
+							.filter(function(){
+								return ( $( this ).position().left >= 0 && parseInt( $( this ).css( 'margin-left' ) ) >= 0 );
+							});
+						$visibleLevelHolders.each(function(){
+							$( this ).width( $( this ).width() - widthDiff );
+						});
+					}
+				}
+				return $this;
 			}
 
 			// Manage multiple animated events and associated callbacks

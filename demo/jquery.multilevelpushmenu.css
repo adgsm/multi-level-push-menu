@@ -10,6 +10,7 @@
 .multilevelpushmenu_wrapper .levelHolderClass {
 	position: absolute;
 	margin-left: -100%;
+	overflow: hidden;
 	left: 0;
 	top: 0;
 	background: #336ca6;
@@ -58,6 +59,7 @@
 .multilevelpushmenu_wrapper a {
 	display: block;
 	outline: none;
+	overflow: hidden;
 	font-size: 1.5em;
 	text-decoration: none;
 	color: #fff;

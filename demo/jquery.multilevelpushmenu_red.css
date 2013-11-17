@@ -9,7 +9,9 @@
 
 .mlpm_w .levelHolderClass {
 	position: absolute;
-	margin-left: -100%; left: 0;
+	margin-left: -100%;
+	overflow: hidden;
+	left: 0;
 	top: 0;
 	background: #ce3130;
 	width: auto;
@@ -57,6 +59,7 @@
 .mlpm_w a {
 	display: block;
 	outline: none;
+	overflow: hidden;
 	font-size: 1.5em;
 	text-decoration: none;
 	color: #fff;
