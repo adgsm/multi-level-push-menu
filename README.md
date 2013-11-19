@@ -1,6 +1,6 @@
 # Multi-level-push-menu
 
-## This jQuery plugin is inspired by [Codrops](http://tympanus.net/codrops/2013/08/13/multi-level-push-menu/) MultiLevelPushMenu but unlike it not relaying on CSS 3D Transforms and therefore functional in older browsers too (i.e. IE 8).
+This jQuery plugin is inspired by [Codrops](http://tympanus.net/codrops/2013/08/13/multi-level-push-menu/) MultiLevelPushMenu but unlike it not relaying on CSS 3D Transforms and therefore functional in older browsers too (i.e. IE 8).
 
 ###UPDATED! [multi-level-push-menu.make.rs](http://multi-level-push-menu.make.rs)
 Documentation, examples and code samples.
