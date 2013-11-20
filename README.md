@@ -625,6 +625,33 @@ For onTitleItemClick and onBackItemClick callbacks provided arguments are respec
 
 For onGroupItemClick and onItemClick callbacks provided arguments are respecively event object, menu level object, clicked item object and plug-in options object.
 
+#### An event callback example
+
+Each event triggers a callback; An example using onItemClick event callback functionality.
+
+    $( '#menu' ).multilevelpushmenu({
+        onItemClick: function() {
+            // First argument is original event object
+            var event = arguments[0],
+                // Second argument is menu level object containing clicked item (<div> element)
+                $menuLevelHolder = arguments[1],
+                // Third argument is clicked item (<li> element)
+                $item = arguments[2],
+                // Fourth argument is instance settings/options object
+                options = arguments[3];
+
+            // You can do some cool stuff here before
+            // redirecting to href location
+            // like logging the event or even
+            // adding some parameters to href, etc...
+
+            // Anchor href
+            var itemHref = $item.find( 'a:first' ).attr( 'href' );
+            // Redirecting the page
+            location.href = itemHref;
+        }
+    });
+
 ### Browser Support / tested
 * Chrome
 * Midori
