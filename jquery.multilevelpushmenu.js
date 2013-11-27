@@ -1,5 +1,5 @@
 /**
- * jquery.multilevelpushmenu.js v2.0.5
+ * jquery.multilevelpushmenu.js v2.0.6
  *
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
@@ -37,6 +37,8 @@
 				groupIcon: 'fa fa-angle-left',
 				mode: 'overlap',
 				overlapWidth: 40,
+				preventItemClick: true,
+				preventGroupItemClick: true,
 				onCollapseMenuStart: function() {},
 				onCollapseMenuEnd: function() {},
 				onExpandMenuStart: function() {},
@@ -152,7 +154,7 @@
 
 			// Update DOM structure if it already exists in container (input: HTML markup)
 			function updateDOMStructure() {
-				var $mainWrapper = instance.settings.menu;
+				var $mainWrapper = ( instance.settings.container.find( 'nav' ).length > 0 ) ? instance.settings.container.find( 'nav' ) : instance.settings.menu;
 				if( $mainWrapper.length == 0 ) return false;
 				$mainWrapper.prop( { "id" : instance.settings.menuID, "className" : instance.settings.wrapperClass } );
 				updateNestedDOMStructure( $mainWrapper );
@@ -252,8 +254,8 @@
 			function itemGroupAnchorClick( e, $levelHolder, $item ) {
 				if( $(instance).find( 'div.levelHolderClass' ).is(':animated') ) return false;
 				instance.settings.onGroupItemClick.apply(this, Array.prototype.slice.call([e, $levelHolder, $item, instance.settings]));
-				stopEventPropagation(e);
 				expandMenu( $item.find( 'div:first' ) );
+				if( instance.settings.preventGroupItemClick ) stopEventPropagation(e);
 			}
 
 			// Create item group DOM element
@@ -296,7 +298,7 @@
 			// Click event for items
 			function itemAnchorClick( e, $levelHolder, $item ) {
 				instance.settings.onItemClick.apply(this, Array.prototype.slice.call([e, $levelHolder, $item, instance.settings]));
-				stopEventPropagation(e);
+				if( instance.settings.preventItemClick ) stopEventPropagation(e);
 			}
 
 			// Sizing DOM elements per creation/update

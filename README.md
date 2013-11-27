@@ -504,7 +504,9 @@ Full list of options is provided below.
     backItemIcon: 'fa fa-angle-right',                         // FontAvesome icon used for back menu item.
     groupIcon: 'fa fa-angle-left',                             // FontAvesome icon used for menu items contaning sub-items.
     mode: 'overlap',                                           // Menu sliding mode: overlap/cover.
-    overlapWidth: 40                                           // Width in px of menu wrappers overlap
+    overlapWidth: 40,                                           // Width in px of menu wrappers overlap
+    preventItemClick: true,                                     // set to false if you do not need event callback functionality per item click
+    preventGroupItemClick: true                                 // set to false if you do not need event callback functionality per group item click
 
 Full list of exposed metdods is provided below.
 
