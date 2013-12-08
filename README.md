@@ -9,10 +9,11 @@ Documentation, examples and code samples.
 * Multi-level menu support
 * Endless nesting of navigation elements
 * Push/Slide DOM elements of choice
+* Left-to-right and Right-to-left sliding directions
 * Flexible, simple markup
 * JS Array input, if markup is not present
 * A number of exposed Options, Methods and Events
-* Cross-browser compatibility (IE8+, Chrome, Midori, Firefox, Safari, Android Browser, iOS Safari)
+* Cross-browser compatibility (IE8+, Chrome, Midori, Firefox, Safari, Opera, Android Browser, iOS Safari)
 
 ### Usage
 
@@ -504,9 +505,10 @@ Full list of options is provided below.
     backItemIcon: 'fa fa-angle-right',                         // FontAvesome icon used for back menu item.
     groupIcon: 'fa fa-angle-left',                             // FontAvesome icon used for menu items contaning sub-items.
     mode: 'overlap',                                           // Menu sliding mode: overlap/cover.
-    overlapWidth: 40,                                           // Width in px of menu wrappers overlap
-    preventItemClick: true,                                     // set to false if you do not need event callback functionality per item click
-    preventGroupItemClick: true                                 // set to false if you do not need event callback functionality per group item click
+    overlapWidth: 40,                                          // Width in px of menu wrappers overlap
+    preventItemClick: true,                                    // set to false if you do not need event callback functionality per item click
+    preventGroupItemClick: true,                               // set to false if you do not need event callback functionality per group item click
+    direction: 'ltr'                                           // set to 'rtl' for reverse sliding direction
 
 Full list of exposed metdods is provided below.
 
@@ -660,6 +662,7 @@ Each event triggers a callback; An example using onItemClick event callback func
 * Firefox
 * Safari
 * IE8+
+* Opera 12.16
 * Android Browser 4.1.2
 * iOS Safari 7.0.1
 
