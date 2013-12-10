@@ -344,7 +344,7 @@
 				instance.settings.container.height( maxHeight );
 				instance.settings.menuWidth = maxWidth;
 				instance.settings.menuHeight = maxHeight;
-				fixLazyBrowsers();
+				var fix = ( filter != undefined ) ? null : fixLazyBrowsers();
 			}
 
 			// Hide wrappers in browsers that
