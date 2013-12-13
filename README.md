@@ -2,12 +2,13 @@
 
 This jQuery plugin is inspired by [Codrops](http://tympanus.net/codrops/2013/08/13/multi-level-push-menu/) MultiLevelPushMenu but unlike it not relaying on CSS 3D Transforms and therefore functional in older browsers too (i.e. IE 8).
 
-###UPDATED! [multi-level-push-menu.make.rs](http://multi-level-push-menu.make.rs)
+###ADDED! Swipe left/right to expand/collapse menus [multi-level-push-menu.make.rs](http://multi-level-push-menu.make.rs)
 Documentation, examples and code samples.
 
 ### Features
 * Multi-level menu support
 * Endless nesting of navigation elements
+* Expand/Collapse navigation with a left/right swipe gesture
 * Push/Slide DOM elements of choice
 * Left-to-right and Right-to-left sliding directions
 * Flexible, simple markup
