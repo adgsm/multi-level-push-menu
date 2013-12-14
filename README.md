@@ -2,7 +2,7 @@
 
 This jQuery plugin is inspired by [Codrops](http://tympanus.net/codrops/2013/08/13/multi-level-push-menu/) MultiLevelPushMenu but unlike it not relaying on CSS 3D Transforms and therefore functional in older browsers too (i.e. IE 8).
 
-###ADDED! Swipe left/right to expand/collapse menus [multi-level-push-menu.make.rs](http://multi-level-push-menu.make.rs)
+###ADDED! Swipe left/right to expand/collapse menus + Full menu collapse [multi-level-push-menu.make.rs](http://multi-level-push-menu.make.rs)
 Documentation, examples and code samples.
 
 ### Features
@@ -495,7 +495,7 @@ Full list of options is provided below.
     container: $( '#menu' ),                                   // Holding container.
     containersToPush: [ $( '#content1' ), $( '#content2' ) ],  // Array of objects to push/slide together with menu.
     collapsed: false,                                          // Initialize menu in collapsed/expanded mode
-    menuID: "multilevelpushmenu",                              // ID of <nav> element.
+    menuID: 'multilevelpushmenu',                              // ID of <nav> element.
     wrapperClass: 'multilevelpushmenu_wrapper',                // Wrapper CSS class.
     menuInactiveClass: 'multilevelpushmenu_inactive',          // CSS class for inactive wrappers.
     menu: arrMenu,                                             // JS array of menu items (if markup not provided).
@@ -509,7 +509,9 @@ Full list of options is provided below.
     overlapWidth: 40,                                          // Width in px of menu wrappers overlap
     preventItemClick: true,                                    // set to false if you do not need event callback functionality per item click
     preventGroupItemClick: true,                               // set to false if you do not need event callback functionality per group item click
-    direction: 'ltr'                                           // set to 'rtl' for reverse sliding direction
+    direction: 'ltr',                                          // set to 'rtl' for reverse sliding direction
+    fullCollapse: false                                        // set to true to fully hide base level holder when collapsed
+
 
 Full list of exposed metdods is provided below.
 
