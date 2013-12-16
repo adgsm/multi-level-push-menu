@@ -477,12 +477,13 @@
 			function pushContainers( absMove ) {
 				if( instance.settings.containersToPush == null ) return false;
 				$.each( instance.settings.containersToPush, function() {
-					if( !isInt( parseInt( $( this ).css('left') ) ) ) {
-						$( this ).css( 'left' , $( this ).offset().left + 'px' );
-						$( this ).css( 'right' , 'auto' );
-					}
+					var lMr = parseInt( $( this ).css( 'margin-left' ) ),
+						lM = isInt( lMr ) ? lMr : 0,
+						rMr = parseInt( $( this ).css( 'margin-right' ) ),
+						rM = isInt( rMr ) ? rMr : 0;
 					$( this ).stop().animate({
-						marginLeft: $( this ).offset().left - $( this ).position().left + ( ( instance.settings.direction == 'rtl' ) ? (-1) : 1 ) * absMove
+						marginLeft:  lM + ( ( instance.settings.direction == 'rtl' ) ? (-1) : 1 ) * absMove,
+						marginRight: rM + ( ( instance.settings.direction == 'rtl' ) ? 1 : (-1) ) * absMove
 					});
 				});
 			}
