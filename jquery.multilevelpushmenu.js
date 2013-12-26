@@ -1,5 +1,5 @@
 /**
- * jquery.multilevelpushmenu.js v2.0.9
+ * jquery.multilevelpushmenu.js v2.1.0
  *
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
@@ -41,6 +41,7 @@
 				overlapWidth: 40,
 				preventItemClick: true,
 				preventGroupItemClick: true,
+				swipe: 'both',
 				onCollapseMenuStart: function() {},
 				onCollapseMenuEnd: function() {},
 				onExpandMenuStart: function() {},
@@ -48,7 +49,8 @@
 				onGroupItemClick: function() {},
 				onItemClick: function() {},
 				onTitleItemClick: function() {},
-				onBackItemClick: function() {}
+				onBackItemClick: function() {},
+				onMenuReady: function() {}
 			}, options );
 
 			// Store a settings reference withint the element's data
@@ -328,9 +330,9 @@
 			// Swipe/Drag event for holders
 			function holderSwipe( emd, $levelHolder ) {
 				if( $(instance).find( 'div.levelHolderClass' ).is(':animated') ) return false;
-				stopEventPropagation( emd );
 				var level = ( $levelHolder.attr( 'data-level' ) > 0 ) ? $levelHolder.attr( 'data-level' ) - 1 : undefined;
-				if( emd.type == 'touchmove' ) {
+				if( emd.type == 'touchmove' && instance.settings.swipe != 'desktop' ) {
+					stopEventPropagation( emd );
 					emd = ( emd.touches ) ? emd : emd.originalEvent;
 					if( !emd.touches || emd.touches.length <= 0 ) return false;
 					var touch = emd.touches[0];
@@ -356,7 +358,8 @@
 						$levelHolder.swipeStart = 0;
 					}
 				}
-				else {
+				else if( instance.settings.swipe != 'touchscreen' ) {
+					stopEventPropagation( emd );
 					var significance = 0;
 					$levelHolder.unbind( 'mousemove' );
 					$levelHolder.bind( 'mousemove' ,  function( emm ){
@@ -451,6 +454,7 @@
 				var execute = ( options.menu != undefined ) ? createDOMStructure() : updateDOMStructure();
 				sizeDOMelements();
 				startMode( instance.settings.collapsed );
+				instance.settings.onMenuReady.apply(this, Array.prototype.slice.call([instance.settings]));
 				return $this;
 			}
 

@@ -510,8 +510,32 @@ Full list of options is provided below.
     preventItemClick: true,                                    // set to false if you do not need event callback functionality per item click
     preventGroupItemClick: true,                               // set to false if you do not need event callback functionality per group item click
     direction: 'ltr',                                          // set to 'rtl' for reverse sliding direction
-    fullCollapse: false                                        // set to true to fully hide base level holder when collapsed
+    fullCollapse: false,                                       // set to true to fully hide base level holder when collapsed
+    swipe: 'both'                                              // or 'touchscreen', or 'desktop'
 
+
+#### Using swipe on desktops
+
+If you will use swiping menus on desktops, mousedown bubble will be canceled and therefore any DOM object placed within menu item won't get focus when clicked.
+To overcome this you can use originally triggered event returned as onItemClick's first argument. Below is an example showing how to set focus on input element, [http://jsfiddle.net/5rjg9/1/](http://jsfiddle.net/5rjg9/1/).
+
+    $(document).ready(function () {
+        $('#menu').multilevelpushmenu({
+            onItemClick: function () {
+                var e = arguments[0];
+                if ($(e.target).prop('tagName').toLowerCase() == 'input') {
+                    $(e.target).focus();
+                    $(e.target).val('focused');
+                    $(e.target).unbind('blur');
+                    $(e.target).blur(function(){
+                        $(e.target).val('blured');
+                    });
+                }
+            }
+        });
+    });
+
+Alternatively, you can set swipe option to 'touchscreen' and allow swiping menus only on touch-screen enabled devices.
 
 Full list of exposed metdods is provided below.
 
@@ -625,8 +649,9 @@ Full list of events/callbacks is provided below.
     onItemClick                       // Click/touchstart menu item which doesn't contain sub-items
     onTitleItemClick                  // Title icon click/touchstart
     onBackItemClick                   // Back item click/touchstart
+    onMenuReady                       // Menu created and ready for use
 
-Provided argument for onCollapseMenuStart, onCollapseMenuEnd, onExpandMenuStart and onExpandMenuEnd callbacks is current options object.
+Provided argument for onMenuReady, onCollapseMenuStart, onCollapseMenuEnd, onExpandMenuStart and onExpandMenuEnd callbacks is current options object.
 
 For onTitleItemClick and onBackItemClick callbacks provided arguments are respecively event object, menu level holder object and plug-in options object.
 
