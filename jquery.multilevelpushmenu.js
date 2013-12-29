@@ -1,5 +1,5 @@
 /**
- * jquery.multilevelpushmenu.js v2.1.0
+ * jquery.multilevelpushmenu.js v2.1.1
  *
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
@@ -17,7 +17,7 @@
 			var instance = this,
 				$this = $( this ),
 				$container = ( $this.context != undefined ) ? $this : $( 'body' ),
-				menu = ( options.menu != undefined ) ? options.menu : $this.find( 'nav' ),
+				menu = ( options && options.menu != undefined ) ? options.menu : $this.find( 'nav' ),
 				clickEventType, dragEventType;
 
 			// Settings
@@ -108,6 +108,18 @@
 				// Remove item(s)
 				removeitems: function () {
 					return removeItems.apply(this, Array.prototype.slice.call(arguments));
+				},
+				// Size DOM elements
+				redraw: function () {
+					return sizeDOMelements.apply(this, Array.prototype.slice.call(arguments));
+				},
+				// Returns visible level holders
+				visiblemenus: function () {
+					return visibleLevelHolders.apply(this, Array.prototype.slice.call(arguments));
+				},
+				// Returns visible level holders
+				hiddenmenus: function () {
+					return hiddenLevelHolders.apply(this, Array.prototype.slice.call(arguments));
 				}
 			};
 
@@ -140,7 +152,6 @@
 					$levelHolder.bind( dragEventType ,  function(e){
 						holderSwipe( e, $levelHolder );
 					});
-					if( extWidth ) $levelHolder.width(instance.settings.menuWidth);
 					var $title = $( "<h2 />" )
 						.attr( { "style" : "text-align: " + ( ( instance.settings.direction == 'rtl' ) ? "right" : "left" ) } )
 					    .text( this.title )
@@ -177,7 +188,6 @@
 					$levelHolder.bind( dragEventType ,  function(e){
 						holderSwipe( e, $levelHolder );
 					});
-					if( extWidth ) $levelHolder.width(instance.settings.menuWidth);
 					var $title = $wrapper.children( 'h2' );
 					$title.attr( { "style" : "text-align: " + ( ( instance.settings.direction == 'rtl' ) ? "right" : "left" ) } );
 					$title.appendTo( $levelHolder );
@@ -380,33 +390,106 @@
 				}
 			}
 
+			// Returns visible level holders
+			function visibleLevelHolders() {
+				var $visibleLevelHolders = instance.settings.container
+					.find( '#' + instance.settings.menuID + ' div.levelHolderClass' )
+					.filter(function(){
+						var retObjs = ( instance.settings.direction == 'rtl' ) ?
+							( parseInt( $( this ).css( 'margin-right' ) ) >= 0 && $( this ).position().left < instance.settings.container.width() - instance.settings.overlapWidth )
+							:
+							( parseInt( $( this ).css( 'margin-left' ) ) >= 0 && $( this ).position().left >= 0 );
+						return retObjs;
+					});
+				if( $visibleLevelHolders.length < 1 ) $visibleLevelHolders = false;
+				return $visibleLevelHolders;
+			}
+
+			// Returns hidden level holders
+			function hiddenLevelHolders() {
+				var $hiddenLevelHolders = instance.settings.container
+					.find( '#' + instance.settings.menuID + ' div.levelHolderClass' )
+					.filter(function(){
+						var retObjs = ( instance.settings.direction == 'rtl' ) ?
+							( ( $( this ).position().left > instance.settings.container.width() || parseInt( $( this ).css( 'margin-right' ) ) < 0 ) )
+							:
+							( ( $( this ).position().left < 0 || parseInt( $( this ).css( 'margin-left' ) ) < 0 ) );
+						return retObjs;
+					});
+				if( $hiddenLevelHolders.length < 1 ) $hiddenLevelHolders = false;
+				return $hiddenLevelHolders;
+			}
+
 			// Sizing DOM elements per creation/update
 			function sizeDOMelements() {
-				var forceWidth = arguments[0],
-					forceHeight = arguments[1],
-					filter = arguments[2],
-					ieShadowFilterDistortion = ($('#' + instance.settings.menuID + ' div.levelHolderClass').first().css('filter').match(/DXImageTransform\.Microsoft\.Shadow/)) ? $('#' + instance.settings.menuID + ' div.levelHolderClass').first().get(0).filters.item("DXImageTransform.Microsoft.Shadow").strength : 0,
-					maxWidth = ( forceWidth == undefined ) ? Math.max.apply( null,
-				        $('#' + instance.settings.menuID + ' div.levelHolderClass').map(function(){ return $(this).width(); }).get() ) * 1.1 : forceWidth,
-					maxLevel = Math.max.apply( null,
-				        $('#' + instance.settings.menuID + ' div.levelHolderClass').map(function(){ return $(this).attr( 'data-level' ); }).get() ),
-					extWidth = ( isValidDim( instance.settings.menuWidth ) || ( isInt( instance.settings.menuWidth ) && instance.settings.menuWidth > 0 ) ),
-					extHeight = ( isValidDim( instance.settings.menuHeight ) || ( isInt( instance.settings.menuHeight ) && instance.settings.menuHeight > 0 ) ),
-					maxExtWidth = ( extWidth ) ? ( instance.settings.menuWidth + maxLevel * ( instance.settings.overlapWidth + ieShadowFilterDistortion ) ) : ( maxWidth + maxLevel * ( instance.settings.overlapWidth + ieShadowFilterDistortion ) ),
-					maxHeight = ( forceHeight == undefined ) ? Math.max.apply( null,
-				        $('#' + instance.settings.menuID + ' div.levelHolderClass').map(function(){ return $(this).height(); }).get() ) : forceHeight,
-					$objects = ( filter == undefined ) ? $('#' + instance.settings.menuID + ' div.levelHolderClass' ) : filter; 
-				( extWidth ) ? $objects.width(instance.settings.menuWidth) : $objects.width( maxWidth );
-				( extHeight ) ? $('#' + instance.settings.menuID).height(instance.settings.menuHeight) : $('#' + instance.settings.menuID).height( maxHeight );
-				instance.settings.container.css( 'min-width' , maxExtWidth + 'px' );
-				instance.settings.container.css( 'min-height' , maxHeight + 'px' );
-				instance.settings.container.children( 'nav:first' ).css( 'min-width' , maxExtWidth + 'px' );
-				instance.settings.container.children( 'nav:first' ).css( 'min-height' , maxHeight + 'px' );
-				instance.settings.container.width( maxExtWidth );
-				instance.settings.container.height( maxHeight );
-				instance.settings.menuWidth = maxWidth;
-				instance.settings.menuHeight = maxHeight;
-				var fix = ( filter != undefined ) ? null : fixLazyBrowsers();
+				if( !instance.redraw ) {
+					instance.redraw = true;
+					var forceWidth = arguments[0],
+						forceHeight = arguments[1],
+						filter = arguments[2],
+						ieShadowFilterDistortion = ($('#' + instance.settings.menuID + ' div.levelHolderClass').first().css('filter').match(/DXImageTransform\.Microsoft\.Shadow/)) ? $('#' + instance.settings.menuID + ' div.levelHolderClass').first().get(0).filters.item("DXImageTransform.Microsoft.Shadow").strength : 0,
+						maxWidth = ( forceWidth == undefined ) ? Math.max.apply( null,
+					        $('#' + instance.settings.menuID + ' div.levelHolderClass').map(function(){ return $(this).width(); }).get() ) - ieShadowFilterDistortion : forceWidth - ieShadowFilterDistortion,
+						maxLevel = Math.max.apply( null,
+					        $('#' + instance.settings.menuID + ' div.levelHolderClass').map(function(){ return $(this).attr( 'data-level' ); }).get() ),
+						extWidth = ( isValidDim( instance.settings.menuWidth ) || ( isInt( instance.settings.menuWidth ) && instance.settings.menuWidth > 0 ) ),
+						extHeight = ( isValidDim( instance.settings.menuHeight ) || ( isInt( instance.settings.menuHeight ) && instance.settings.menuHeight > 0 ) ),
+						$objects = ( filter == undefined ) ? $('#' + instance.settings.menuID + ' div.levelHolderClass' ) : filter;
+					if ( !extWidth && instance.menuWidth != undefined ) maxWidth = instance.menuWidth;
+					( extWidth && forceWidth == undefined ) ? $objects.width(instance.settings.menuWidth) : $objects.width( maxWidth );
+					if( extWidth ){
+						if( ( $objects.width() == 0 || ( isValidDim( instance.settings.menuWidth ) && instance.settings.menuWidth.indexOf( '%' ) != -1 ) ) && forceWidth == undefined ) {
+							$objects.css( 'min-width' , '' );
+							$objects.width( parseInt( instance.settings.container.parent().width() * parseInt( instance.settings.menuWidth )/100 ) )
+						};
+						maxWidth = $objects.width() - ieShadowFilterDistortion;
+						$objects.css( 'min-width' , $objects.width() - ieShadowFilterDistortion + 'px' );
+					}
+					var maxExtWidth = ( extWidth && forceWidth == undefined ) ? ( $objects.width() - ieShadowFilterDistortion + maxLevel * ( instance.settings.overlapWidth + ieShadowFilterDistortion ) ) : ( maxWidth + maxLevel * ( instance.settings.overlapWidth + ieShadowFilterDistortion ) ),
+						maxHeight = ( forceHeight == undefined ) ? Math.max.apply( null,
+					        $('#' + instance.settings.menuID + ' div.levelHolderClass').map(function(){ return $(this).height(); }).get() ) : forceHeight;
+
+					instance.settings.container.css( 'min-height' , '' );
+					instance.settings.container.children( 'nav:first' ).css( 'min-height' , '' );
+					if( extHeight ) {
+						instance.settings.container.height( instance.settings.menuHeight );
+						instance.settings.container.css( 'min-height' , instance.settings.menuHeight );
+						instance.settings.container.children( 'nav:first' ).css( 'min-height' , instance.settings.menuHeight );
+						$('#' + instance.settings.menuID).height(instance.settings.menuHeight);
+						maxHeight = instance.settings.container.height();
+					}
+					else {
+						$('#' + instance.settings.menuID).height( maxHeight );
+					}
+					instance.settings.container.css( 'min-width' , '' );
+					instance.settings.container.css( 'min-width' , maxExtWidth + 'px' );
+					instance.settings.container.css( 'min-height' , maxHeight + 'px' );
+					instance.settings.container.children( 'nav:first' ).css( 'min-width' , '' );
+					instance.settings.container.children( 'nav:first' ).css( 'min-width' , maxExtWidth + 'px' );
+					instance.settings.container.children( 'nav:first' ).css( 'min-height' , maxHeight + 'px' );
+					instance.settings.container.width( maxExtWidth );
+					instance.settings.container.height( maxHeight );
+					var $baseLevelHolder = $('#' + instance.settings.menuID + ' div.levelHolderClass:first'),
+						$visibleLevelHolders = visibleLevelHolders(),
+						$hiddenLevelHolders = hiddenLevelHolders(),
+						$activeLevelHolder = activeMenu(),
+						activeLevel = ( $activeLevelHolder.length == 1 ) ? $activeLevelHolder.attr( 'data-level' ) : 0;
+					if( $visibleLevelHolders )
+						$visibleLevelHolders.each(function(){
+							if ( instance.settings.mode == 'overlap' )
+								$( this ).width( $( this ).width() + ( parseInt( activeLevel , 10) - parseInt( $( this ).attr( 'data-level' ) , 10) ) * ( instance.settings.overlapWidth + ieShadowFilterDistortion ) );
+						});
+					if( $hiddenLevelHolders )
+						$hiddenLevelHolders.each(function(){
+						( instance.settings.direction == 'rtl' ) ?
+							$( this ).css( 'margin-right' , ( $( this ).attr( 'data-level' ) == $baseLevelHolder.attr( 'data-level' ) && !instance.settings.fullCollapse ) ? $( this ).width() * (-1) + instance.settings.overlapWidth : $( this ).width() * (-2) )
+							:
+							$( this ).css( 'margin-left' , ( $( this ).attr( 'data-level' ) == $baseLevelHolder.attr( 'data-level' ) && !instance.settings.fullCollapse ) ? $( this ).width() * (-1) + instance.settings.overlapWidth : $( this ).width() * (-2) );
+						});
+					instance.menuWidth = maxWidth;
+					instance.menuHeight = maxHeight;
+					instance.redraw = false;
+				}
 			}
 
 			// Hide wrappers in browsers that
@@ -451,8 +534,9 @@
 
 			// Initialize menu level push menu
 			function initialize(){
-				var execute = ( options.menu != undefined ) ? createDOMStructure() : updateDOMStructure();
+				var execute = ( options && options.menu != undefined ) ? createDOMStructure() : updateDOMStructure();
 				sizeDOMelements();
+				fixLazyBrowsers();
 				startMode( instance.settings.collapsed );
 				instance.settings.onMenuReady.apply(this, Array.prototype.slice.call([instance.settings]));
 				return $this;
@@ -581,7 +665,7 @@
 									( instance.settings.fullCollapse ) ?
 										( -1 ) * $( val ).width()
 										:
-										( ( -1 ) * $( val ).width() + ( $nextLevelHolders.length + 1 ) * instance.settings.overlapWidth )
+										( ( -1 ) * $( val ).width() + ( ( instance.settings.mode == 'overlap' ) ? $nextLevelHolders.length + 1 : 1 ) * instance.settings.overlapWidth )
 									:
 									0
 							}, function(){
@@ -599,7 +683,7 @@
 									( instance.settings.fullCollapse ) ?
 										( -1 ) * $( val ).width()
 										:
-										( ( -1 ) * $( val ).width() + ( $nextLevelHolders.length + 1 ) * instance.settings.overlapWidth )
+										( ( -1 ) * $( val ).width() + ( ( instance.settings.mode == 'overlap' ) ? $nextLevelHolders.length + 1 : 1 ) * instance.settings.overlapWidth )
 									:
 									0
 							}, function(){
@@ -894,7 +978,7 @@
 				var items = arguments[0],
 					$levelHolder = arguments[1],
 					position = arguments[2];
-				if( $levelHolder == undefined || typeof items != 'object' ) return false;
+				if( $levelHolder == undefined || typeof items != 'object' || !$levelHolder ) return false;
 				if( items.level == undefined ) items.level = parseInt( $levelHolder.attr( 'data-level' ) , 10 );
 				if( position == undefined ) position = 0;
 				var $itemGroup = $levelHolder.find( 'ul:first' );
@@ -902,7 +986,7 @@
 					if( this.name != undefined )
 						createItem( this, $levelHolder, position );
 				});
-				sizeDOMelements( instance.settings.menuWidth , undefined , $levelHolder.find( 'div.levelHolderClass' ) );
+				sizeDOMelements( instance.menuWidth );
 				return $this;
 			}
 
@@ -917,22 +1001,16 @@
 					$activeMenu.find( '.' + instance.settings.backItemClass ).css( 'visibility' , 'visible' );
 					$activeMenu.find( 'ul' ).css( 'visibility' , 'visible' );
 					$activeMenu.removeClass( instance.settings.menuInactiveClass );
-					var widthDiff = $activeMenu.width() - instance.settings.menuWidth;
+					var widthDiff = $activeMenu.width() - instance.menuWidth;
 					if( widthDiff != 0 ) {
-						var $visibleLevelHolders = instance.settings.container
-							.find( '#' + instance.settings.menuID + ' div.levelHolderClass' )
-							.filter(function(){
-								var retObjs = ( instance.settings.direction == 'rtl' ) ?
-									( parseInt( $( this ).css( 'margin-right' ) ) >= 0 && $( this ).position().left < instance.settings.container.width() - instance.settings.overlapWidth )
-									:
-									( parseInt( $( this ).css( 'margin-left' ) ) >= 0 && $( this ).position().left >= 0 );
-								return retObjs;
+						var $visibleLevelHolders = visibleLevelHolders();
+						if( $visibleLevelHolders )
+							$visibleLevelHolders.each(function(){
+								$( this ).width( $( this ).width() - widthDiff );
 							});
-						$visibleLevelHolders.each(function(){
-							$( this ).width( $( this ).width() - widthDiff );
-						});
 					}
 				}
+				sizeDOMelements( instance.menuWidth );
 				return $this;
 			}
 

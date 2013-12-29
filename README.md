@@ -2,8 +2,7 @@
 
 This jQuery plugin is inspired by [Codrops](http://tympanus.net/codrops/2013/08/13/multi-level-push-menu/) MultiLevelPushMenu but unlike it not relaying on CSS 3D Transforms and therefore functional in older browsers too (i.e. IE 8).
 
-###ADDED! Swipe left/right to expand/collapse menus + Full menu collapse [multi-level-push-menu.make.rs](http://multi-level-push-menu.make.rs)
-Documentation, examples and code samples.
+###Documentation, examples and code samples [multi-level-push-menu.make.rs](http://multi-level-push-menu.make.rs)
 
 ### Features
 * Multi-level menu support
@@ -636,6 +635,34 @@ Full list of exposed metdods is provided below.
 
     // Remove
     $('#menu').multilevelpushmenu( 'removeitems' , items );
+
+    /**
+     * Redraw menus
+     * 
+     */
+    $('#menu').multilevelpushmenu( 'redraw' );
+
+    /**
+     * Visible menus
+     * 
+     */
+    $('#menu').multilevelpushmenu( 'visiblemenus' );
+
+    /**
+     * Hidden menus
+     * 
+     */
+    $('#menu').multilevelpushmenu( 'hiddenmenus' );
+
+#### Responsive menu example
+
+    $( '#menu' ).multilevelpushmenu({
+        menuWidth: '20%',
+        menuHeight: '100%'
+    });
+    $( window ).resize(function() {
+        $( '#menu' ).multilevelpushmenu( 'redraw' );
+    });
 
 Full list of events/callbacks is provided below.
 
