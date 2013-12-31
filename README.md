@@ -209,10 +209,12 @@ You can supply JS Array instead of above HTML markup.
     var arrMenu = [
       {
         title: 'All Categories',
+        id: 'menuID',
         icon: 'fa fa-reorder',
         items: [
           {
             name: 'Devices',
+            id: 'itemID',
             icon: 'fa fa-laptop',
             link: '#',
             items: [
