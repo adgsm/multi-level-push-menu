@@ -152,6 +152,7 @@
 					$levelHolder.bind( dragEventType ,  function(e){
 						holderSwipe( e, $levelHolder );
 					});
+					if( this.id != undefined ) $levelHolder.attr( { "id" : this.id } );
 					var $title = $( "<h2 />" )
 						.attr( { "style" : "text-align: " + ( ( instance.settings.direction == 'rtl' ) ? "right" : "left" ) } )
 					    .text( this.title )
@@ -310,7 +311,8 @@
 					( position < ( $itemGroup.find( 'li' ).length ) && position >= 0 ) ? 
 						$item.insertBefore( $itemGroup.find( 'li' ).eq( position ) ) : $item.appendTo( $itemGroup );
 					$item.attr( { "style" : "text-align: " + ( ( instance.settings.direction == 'rtl' ) ? "right" : "left" ) } );
-				    var $itemAnchor = $( "<a />" )
+				    if( item.id != undefined ) $item.attr( { "id" : item.id } );
+					var $itemAnchor = $( "<a />" )
 				    .prop( { "href" : item.link } )
 				    .text( item.name )
 				    .appendTo( $item ),
