@@ -1,5 +1,5 @@
 /**
- * jquery.multilevelpushmenu.js v2.1.1
+ * jquery.multilevelpushmenu.js v2.1.2
  *
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
@@ -50,7 +50,8 @@
 				onItemClick: function() {},
 				onTitleItemClick: function() {},
 				onBackItemClick: function() {},
-				onMenuReady: function() {}
+				onMenuReady: function() {},
+				onMenuSwipe: function() {}
 			}, options );
 
 			// Store a settings reference withint the element's data
@@ -341,6 +342,8 @@
 
 			// Swipe/Drag event for holders
 			function holderSwipe( emd, $levelHolder ) {
+				var extRes = instance.settings.onMenuSwipe.apply(this, Array.prototype.slice.call([emd, $levelHolder, instance.settings]));
+				if( extRes == false ) return false;
 				if( $(instance).find( 'div.levelHolderClass' ).is(':animated') ) return false;
 				var level = ( $levelHolder.attr( 'data-level' ) > 0 ) ? $levelHolder.attr( 'data-level' ) - 1 : undefined;
 				if( emd.type == 'touchmove' && instance.settings.swipe != 'desktop' ) {

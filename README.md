@@ -2,7 +2,7 @@
 
 This jQuery plugin is inspired by [Codrops](http://tympanus.net/codrops/2013/08/13/multi-level-push-menu/) MultiLevelPushMenu but unlike it not relaying on CSS 3D Transforms and therefore functional in older browsers too (i.e. IE 8).
 
-###Documentation, examples and code samples [multi-level-push-menu.make.rs](http://multi-level-push-menu.make.rs)
+###Documentation, examples and code samples [http://multi-level-push-menu.make.rs](http://multi-level-push-menu.make.rs)
 ![](http://multi-level-push-menu.make.rs/img/menu.png)
 
 ### Features
@@ -519,7 +519,7 @@ Full list of options is provided below.
 #### Using swipe on desktops
 
 If you will use swiping menus on desktops, mousedown bubble will be canceled and therefore any DOM object placed within menu item won't get focus when clicked.
-To overcome this you can use originally triggered event returned as onItemClick's first argument. Below is an example showing how to set focus on input element, [http://jsfiddle.net/5rjg9/1/](http://jsfiddle.net/5rjg9/1/).
+To overcome this you can use originally triggered event returned as onItemClick's first argument. Below is an example showing how to set focus on input element, [http://jsfiddle.net/5rjg9/1/](http://jsfiddle.net/5rjg9/1/)
 
     $(document).ready(function () {
         $('#menu').multilevelpushmenu({
@@ -533,6 +533,19 @@ To overcome this you can use originally triggered event returned as onItemClick'
                         $(e.target).val('blured');
                     });
                 }
+            }
+        });
+    });
+
+or,
+
+[http://jsfiddle.net/c5EA4/6/](http://jsfiddle.net/c5EA4/6/)
+
+    $(document).ready(function () {
+        $('#menu').multilevelpushmenu({
+            onMenuSwipe: function () {
+                var e = arguments[0];
+                if ($(e.target).prop('tagName').toLowerCase() == 'input') return false;
             }
         });
     });
@@ -680,10 +693,11 @@ Full list of events/callbacks is provided below.
     onTitleItemClick                  // Title icon click/touchstart
     onBackItemClick                   // Back item click/touchstart
     onMenuReady                       // Menu created and ready for use
+    onMenuSwipe                       // Menu swipe initiated
 
 Provided argument for onMenuReady, onCollapseMenuStart, onCollapseMenuEnd, onExpandMenuStart and onExpandMenuEnd callbacks is current options object.
 
-For onTitleItemClick and onBackItemClick callbacks provided arguments are respecively event object, menu level holder object and plug-in options object.
+For onMenuSwipe, onTitleItemClick and onBackItemClick callbacks provided arguments are respecively event object, menu level holder object and plug-in options object.
 
 For onGroupItemClick and onItemClick callbacks provided arguments are respecively event object, menu level object, clicked item object and plug-in options object.
 
