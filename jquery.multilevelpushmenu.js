@@ -675,7 +675,7 @@
 									0
 							}, function(){
 								if( $( val ).attr( 'data-level' ) == $baseLevelHolder.attr( 'data-level' ) && collapseAll ){
-									$baseLevelHolder.find( 'ul' ).hide(500, function(){
+									$baseLevelHolder.children( 'ul' ).first().hide(500, function(){
 										$baseLevelHolder.addClass( instance.settings.menuInactiveClass );
 									});
 								}
@@ -693,7 +693,7 @@
 									0
 							}, function(){
 								if( $( val ).attr( 'data-level' ) == $baseLevelHolder.attr( 'data-level' ) && collapseAll ){
-									$baseLevelHolder.find( 'ul' ).hide(500, function(){
+									$baseLevelHolder.children( 'ul' ).first().hide(500, function(){
 										$baseLevelHolder.addClass( instance.settings.menuInactiveClass );
 									});
 								}
@@ -745,7 +745,7 @@
 						$baseLevelHolder.stop().animate({
 							marginRight: 0
 						},function(){
-							$baseLevelHolder.find( 'ul' ).show(500).last().queue(function(){
+							$baseLevelHolder.children( 'ul' ).first().show(500 , function(){
 								expandingObjects[ 'baseAnimEnded' ] = true;
 								animatedEventCallback( expandingObjects , callbacks );
 							});
@@ -755,7 +755,7 @@
 						$baseLevelHolder.stop().animate({
 							marginLeft: 0
 						},function(){
-							$baseLevelHolder.find( 'ul' ).show(500).last().queue(function(){
+							$baseLevelHolder.children( 'ul' ).first().show(500 , function(){
 								expandingObjects[ 'baseAnimEnded' ] = true;
 								animatedEventCallback( expandingObjects , callbacks );
 							});
@@ -781,7 +781,9 @@
 						expandingObjects[ 'setToOpenAnimEnded' ] = false;
 						if( setToOpenHolders = pathToRoot( $selectedLevelHolder ) ) {
 							var parentLevelHoldersLen = $( setToOpenHolders ).length - 1;
-							$baseLevelHolder.find( 'ul' ).show(0);
+							$baseLevelHolder.find( 'ul' ).each(function(){
+								$( this ).show(0);
+							});
 							$( setToOpenHolders ).find( 'ul' ).css( 'visibility' , 'hidden' );
 							$( setToOpenHolders ).find( 'div' ).css( 'visibility' , 'visible' );
 							$( setToOpenHolders ).find( '.' + instance.settings.backItemClass ).css( 'visibility' , 'hidden' );
