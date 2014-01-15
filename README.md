@@ -670,6 +670,12 @@ Full list of exposed metdods is provided below.
      */
     $('#menu').multilevelpushmenu( 'hiddenmenus' );
 
+    /**
+     * Propagate event to underneath layer
+     * 
+     */
+     $( '#menu' ).multilevelpushmenu( 'propagateevent' , $( '#menu' ) , 'mousedown' );
+
 #### Responsive menu example
 
     $( '#menu' ).multilevelpushmenu({

@@ -1,5 +1,5 @@
 /**
- * jquery.multilevelpushmenu.js v2.1.2
+ * jquery.multilevelpushmenu.js v2.1.4
  *
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
@@ -121,6 +121,10 @@
 				// Returns visible level holders
 				hiddenmenus: function () {
 					return hiddenLevelHolders.apply(this, Array.prototype.slice.call(arguments));
+				},
+				// Propagate event to underneath layer
+				propagateevent: function () {
+					return propagateEvent.apply(this, Array.prototype.slice.call(arguments));
 				}
 			};
 
@@ -139,6 +143,7 @@
 			// propagate event to underneath layer
 			// http://jsfiddle.net/E9zTs/2/
 			function propagateEvent( $element , event ) {
+				if( $element == undefined || event == undefined ) return false;
 				$element.on( event , function ( e , ee ) {
 					$element.hide();
 					try {
@@ -151,7 +156,7 @@
 						$( next ).trigger( event , ee );
 					}
 					catch ( err ) {
-						console.log( err.message );
+						$.error( 'Error while propagating event: ' + err.message );
 					}
 					finally {
 						$element.show();
@@ -468,7 +473,8 @@
 					        $('#' + instance.settings.menuID + ' div.levelHolderClass').map(function(){ return $(this).attr( 'data-level' ); }).get() ),
 						extWidth = ( isValidDim( instance.settings.menuWidth ) || ( isInt( instance.settings.menuWidth ) && instance.settings.menuWidth > 0 ) ),
 						extHeight = ( isValidDim( instance.settings.menuHeight ) || ( isInt( instance.settings.menuHeight ) && instance.settings.menuHeight > 0 ) ),
-						$objects = ( filter == undefined ) ? $('#' + instance.settings.menuID + ' div.levelHolderClass' ) : filter;
+						$objects = ( filter == undefined ) ? $('#' + instance.settings.menuID + ' div.levelHolderClass' ) : filter,
+						currWidth;
 					if ( !extWidth && instance.menuWidth != undefined ) maxWidth = instance.menuWidth;
 					( extWidth && forceWidth == undefined ) ? $objects.width(instance.settings.menuWidth) : $objects.width( maxWidth );
 					if( extWidth ){
@@ -495,11 +501,11 @@
 					else {
 						$('#' + instance.settings.menuID).height( maxHeight );
 					}
-					instance.settings.container.css( 'min-width' , '' );
-					instance.settings.container.css( 'min-width' , maxExtWidth + 'px' );
+//					instance.settings.container.css( 'min-width' , '' );
+//					instance.settings.container.css( 'min-width' , maxExtWidth + 'px' );
 					instance.settings.container.css( 'min-height' , maxHeight + 'px' );
-					instance.settings.container.children( 'nav:first' ).css( 'min-width' , '' );
-					instance.settings.container.children( 'nav:first' ).css( 'min-width' , maxExtWidth + 'px' );
+//					instance.settings.container.children( 'nav:first' ).css( 'min-width' , '' );
+//					instance.settings.container.children( 'nav:first' ).css( 'min-width' , maxExtWidth + 'px' );
 					instance.settings.container.children( 'nav:first' ).css( 'min-height' , maxHeight + 'px' );
 					instance.settings.container.width( maxExtWidth );
 					instance.settings.container.height( maxHeight );
@@ -520,10 +526,22 @@
 							:
 							$( this ).css( 'margin-left' , ( $( this ).attr( 'data-level' ) == $baseLevelHolder.attr( 'data-level' ) && !instance.settings.fullCollapse ) ? $( this ).width() * (-1) + instance.settings.overlapWidth : $( this ).width() * (-2) );
 						});
+					currWidth = $baseLevelHolder.width() + parseInt( $baseLevelHolder.css( ( instance.settings.direction == 'rtl' ) ? 'margin-right' : 'margin-left' ) , 10 );
+					sizeElementWidth( instance.settings.container , currWidth );
 					instance.menuWidth = maxWidth;
 					instance.menuHeight = maxHeight;
 					instance.redraw = false;
 				}
+			}
+			
+			// Simple/singe DOM element width sizing 
+			function sizeElementWidth( $element , size ) {
+				if( $element == undefined || size == undefined ) return false;
+				$element.css( 'min-width' , '' );
+				$element.css( 'min-width' , size + 'px' );
+				$element.children( 'nav:first' ).css( 'min-width' , '' );
+				$element.children( 'nav:first' ).css( 'min-width' , size + 'px' );
+				$element.width( size );
 			}
 
 			// Hide wrappers in browsers that
@@ -569,10 +587,7 @@
 			// Initialize menu level push menu
 			function initialize(){
 				var execute = ( options && options.menu != undefined ) ? createDOMStructure() : updateDOMStructure();
-				
-propagateEvent( instance.settings.container , clickEventType );
-
-
+				propagateEvent( instance.settings.container , clickEventType );
 				sizeDOMelements();
 				fixLazyBrowsers();
 				startMode( instance.settings.collapsed );
@@ -623,7 +638,8 @@ propagateEvent( instance.settings.container , clickEventType );
 					collapingObjects = {},
 					ieShadowFilterDistortion,lwidth, lpush, lMarginLeft, lMarginLeftFC,
 					$baseLevelHolder = $('#' + instance.settings.menuID + ' div.levelHolderClass:first'),
-					collapseAll = ( level == undefined ) ? true : false;
+					collapseAll = ( level == undefined ) ? true : false,
+					currWidth;
 				collapingObjects[ 'collapsingEnded' ] = false;
 				if( typeof level == 'object' ) {
 					level = level.attr( 'data-level' );
@@ -712,6 +728,8 @@ propagateEvent( instance.settings.container , clickEventType );
 										$baseLevelHolder.addClass( instance.settings.menuInactiveClass );
 									});
 								}
+								currWidth = $baseLevelHolder.width() + parseInt( $baseLevelHolder.css( 'margin-right' ) , 10 );
+								sizeElementWidth( instance.settings.container , currWidth );
 							});
 						}
 						else {
@@ -730,6 +748,8 @@ propagateEvent( instance.settings.container , clickEventType );
 										$baseLevelHolder.addClass( instance.settings.menuInactiveClass );
 									});
 								}
+								currWidth = $baseLevelHolder.width() + parseInt( $baseLevelHolder.css( 'margin-left' ) , 10 );
+								sizeElementWidth( instance.settings.container , currWidth );
 							});
 						}
 						lpush = ( instance.settings.mode == 'overlap' ) ? ( (-1) * ( $nextLevelHolders.length * ( instance.settings.overlapWidth + ieShadowFilterDistortion ) ) ) : 0 ;
@@ -757,7 +777,7 @@ propagateEvent( instance.settings.container , clickEventType );
 				instance.settings.onExpandMenuStart.apply(this, Array.prototype.slice.call([instance.settings]));
 				var menuTitle = arguments[0],
 					callbacks = arguments[1],
-					ieShadowFilterDistortion, lwidth, lpush, blpush,
+					ieShadowFilterDistortion, lwidth, lpush, blpush, currWidth,
 					expandingObjects = {},
 					$baseLevelHolder = $('#' + instance.settings.menuID + ' div.levelHolderClass:first'),
 					baseExpand = ( menuTitle == undefined ) ? true : false,
@@ -774,6 +794,8 @@ propagateEvent( instance.settings.container , clickEventType );
 				if( baseExpand ) {
 					expandingObjects[ 'baseAnimEnded' ] = false;
 					$baseLevelHolder.removeClass( instance.settings.menuInactiveClass );
+					currWidth = $baseLevelHolder.width();
+					sizeElementWidth( instance.settings.container , currWidth );
 					if( instance.settings.direction == 'rtl' ) {
 						$baseLevelHolder.stop().animate({
 							marginRight: 0
@@ -823,6 +845,8 @@ propagateEvent( instance.settings.container , clickEventType );
 							$( setToOpenHolders ).each( function( key, val ) {
 								ieShadowFilterDistortion = ($( val ).css('filter').match(/DXImageTransform\.Microsoft\.Shadow/)) ? $( val ).get(0).filters.item("DXImageTransform.Microsoft.Shadow").strength : 0;
 								lwidth = baseWidth - ieShadowFilterDistortion + ( parentLevelHoldersLen - $( val ).attr( 'data-level' ) ) * ( instance.settings.overlapWidth + ieShadowFilterDistortion );
+								if(instance.settings.container.width() < lwidth && instance.settings.mode == 'overlap' )
+									sizeElementWidth( instance.settings.container , lwidth );
 								if( instance.settings.direction == 'rtl' ) {
 									$( val ).stop().animate({
 										marginRight: 0,
