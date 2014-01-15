@@ -136,6 +136,29 @@
 				}
 			}
 
+			// propagate event to underneath layer
+			// http://jsfiddle.net/E9zTs/2/
+			function propagateEvent( $element , event ) {
+				$element.on( event , function ( e , ee ) {
+					$element.hide();
+					try {
+						ee = ee || {
+							pageX: e.pageX,
+							pageY: e.pageY
+						};
+						var next = document.elementFromPoint( ee.pageX , ee.pageY );
+						next = ( next.nodeType == 3 ) ? next.parentNode : next //Opera
+						$( next ).trigger( event , ee );
+					}
+					catch ( err ) {
+						console.log( err.message );
+					}
+					finally {
+						$element.show();
+					}
+				});
+			}
+
 			// Create DOM structure if it does not already exist within the container (input: array)
 			function createDOMStructure() {
 				var $mainWrapper = $( "<nav />" )
@@ -150,6 +173,9 @@
 					    .attr( { "class" : "levelHolderClass" + ( ( instance.settings.direction == 'rtl' ) ? " rtl" : " ltr" ), "data-level" : menus.level, "style" : ( ( instance.settings.direction == 'rtl' ) ? "margin-right: " : "margin-left: " ) + ( ( menus.level == 0 && !instance.settings.collapsed ) ? 0 : "-200%" ) } )
 					    .appendTo( $wrapper ),
 					    extWidth = ( isValidDim( instance.settings.menuWidth ) || ( isInt( instance.settings.menuWidth ) && instance.settings.menuWidth > 0 ) );
+					$levelHolder.on( clickEventType , function( e ) {
+						stopEventPropagation( e );
+					});
 					$levelHolder.bind( dragEventType ,  function(e){
 						holderSwipe( e, $levelHolder );
 					});
@@ -187,6 +213,9 @@
 					    .attr( { "class" : "levelHolderClass" + ( ( instance.settings.direction == 'rtl' ) ? " rtl" : " ltr" ), "data-level" : $wrapper.level, "style" : ( ( instance.settings.direction == 'rtl' ) ? "margin-right: " : "margin-left: " ) + ( ( $wrapper.level == 0 && !instance.settings.collapsed ) ? 0 : "-200%" ) } )
 					    .appendTo( $wrapper ),
 					    extWidth = ( isValidDim( instance.settings.menuWidth ) || ( isInt( instance.settings.menuWidth ) && instance.settings.menuWidth > 0 ) );
+					$levelHolder.on( clickEventType , function( e ) {
+						stopEventPropagation( e );
+					});
 					$levelHolder.bind( dragEventType ,  function(e){
 						holderSwipe( e, $levelHolder );
 					});
@@ -540,6 +569,10 @@
 			// Initialize menu level push menu
 			function initialize(){
 				var execute = ( options && options.menu != undefined ) ? createDOMStructure() : updateDOMStructure();
+				
+propagateEvent( instance.settings.container , clickEventType );
+
+
 				sizeDOMelements();
 				fixLazyBrowsers();
 				startMode( instance.settings.collapsed );
