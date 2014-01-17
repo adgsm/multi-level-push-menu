@@ -178,9 +178,6 @@
 					    .attr( { "class" : "levelHolderClass" + ( ( instance.settings.direction == 'rtl' ) ? " rtl" : " ltr" ), "data-level" : menus.level, "style" : ( ( instance.settings.direction == 'rtl' ) ? "margin-right: " : "margin-left: " ) + ( ( menus.level == 0 && !instance.settings.collapsed ) ? 0 : "-200%" ) } )
 					    .appendTo( $wrapper ),
 					    extWidth = ( isValidDim( instance.settings.menuWidth ) || ( isInt( instance.settings.menuWidth ) && instance.settings.menuWidth > 0 ) );
-					$levelHolder.on( clickEventType , function( e ) {
-						stopEventPropagation( e );
-					});
 					$levelHolder.bind( dragEventType ,  function(e){
 						holderSwipe( e, $levelHolder );
 					});
@@ -218,9 +215,6 @@
 					    .attr( { "class" : "levelHolderClass" + ( ( instance.settings.direction == 'rtl' ) ? " rtl" : " ltr" ), "data-level" : $wrapper.level, "style" : ( ( instance.settings.direction == 'rtl' ) ? "margin-right: " : "margin-left: " ) + ( ( $wrapper.level == 0 && !instance.settings.collapsed ) ? 0 : "-200%" ) } )
 					    .appendTo( $wrapper ),
 					    extWidth = ( isValidDim( instance.settings.menuWidth ) || ( isInt( instance.settings.menuWidth ) && instance.settings.menuWidth > 0 ) );
-					$levelHolder.on( clickEventType , function( e ) {
-						stopEventPropagation( e );
-					});
 					$levelHolder.bind( dragEventType ,  function(e){
 						holderSwipe( e, $levelHolder );
 					});
@@ -501,11 +495,7 @@
 					else {
 						$('#' + instance.settings.menuID).height( maxHeight );
 					}
-//					instance.settings.container.css( 'min-width' , '' );
-//					instance.settings.container.css( 'min-width' , maxExtWidth + 'px' );
 					instance.settings.container.css( 'min-height' , maxHeight + 'px' );
-//					instance.settings.container.children( 'nav:first' ).css( 'min-width' , '' );
-//					instance.settings.container.children( 'nav:first' ).css( 'min-width' , maxExtWidth + 'px' );
 					instance.settings.container.children( 'nav:first' ).css( 'min-height' , maxHeight + 'px' );
 					instance.settings.container.width( maxExtWidth );
 					instance.settings.container.height( maxHeight );
