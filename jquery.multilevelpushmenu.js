@@ -348,6 +348,9 @@
 				    $itemIcon = $( "<i />" )
 					.prop( { "class" : ( ( instance.settings.direction == 'rtl' ) ? "floatLeft " : "floatRight " ) + item.icon } )
 				    .prependTo( $itemAnchor );
+				if (item.data) {
+    				$itemAnchor.data(item.data);
+				}
 				if(item.items) {
 					$itemAnchor.bind( clickEventType , function(e){
 						itemGroupAnchorClick( e, $levelHolder, $item );
