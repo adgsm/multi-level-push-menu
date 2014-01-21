@@ -4,13 +4,14 @@
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
  * 
- * Copyright 2013, Make IT d.o.o.
+ * Copyright 2013-2014, Make IT d.o.o.
  * http://multi-level-push-menu.make.rs
  * https://github.com/adgsm/multi-level-push-menu
  */
 (function ( $ ) {
 	$.fn.multilevelpushmenu = function( options ) {
-		var args = arguments;
+		"use strict";
+		var args = arguments,
 			returnValue = null;
 		
 		this.each(function(){
@@ -588,7 +589,7 @@
 			// Initialize menu in collapsed/expanded mode 
 			function startMode( mode ) {
 				if( mode ) {
-					$baseLevelHolder = $('#' + instance.settings.menuID + ' div.levelHolderClass:first');
+					var $baseLevelHolder = $('#' + instance.settings.menuID + ' div.levelHolderClass:first');
 					$baseLevelHolder.find( 'ul' ).hide();
 					$baseLevelHolder.addClass( instance.settings.menuInactiveClass );
 					if( instance.settings.direction == 'rtl' ) {
@@ -809,6 +810,7 @@
 					blpush = ( instance.settings.fullCollapse ) ? $baseLevelHolder.width() : $baseLevelHolder.width() - instance.settings.overlapWidth;
 					var pushbm = ( !menuExpanded( $baseLevelHolder ) ) ? pushContainers( blpush ) : null;
 				} else {
+					var $selectedLevelHolder;
 					if( typeof menuTitle == 'object' ) {
 						$selectedLevelHolder = menuTitle;
 					}
@@ -822,9 +824,10 @@
 					if( $selectedLevelHolder && $selectedLevelHolder.length == 1 ) {
 						var $activeLevelHolder = activeMenu(),
 							activeLevel = ( $activeLevelHolder.length == 1 ) ? $activeLevelHolder.attr( 'data-level' ) : 0,
-							baseWidth = $selectedLevelHolder.width();
+							baseWidth = $selectedLevelHolder.width(),
+							setToOpenHolders = pathToRoot( $selectedLevelHolder );
 						expandingObjects[ 'setToOpenAnimEnded' ] = false;
-						if( setToOpenHolders = pathToRoot( $selectedLevelHolder ) ) {
+						if( setToOpenHolders ) {
 							var parentLevelHoldersLen = $( setToOpenHolders ).length - 1;
 							$baseLevelHolder.find( 'ul' ).each(function(){
 								$( this ).show(0);
@@ -1006,10 +1009,10 @@
 						return retObjs;
 					}),
 					maxLevel = Math.max.apply( null,
-				        $activeLevelHolders.map(function(){ return $(this).attr( 'data-level' ); }).get() );
-				$activeLevelHolder = $activeLevelHolders.filter(function(){
-					return $( this ).attr( 'data-level' ) == maxLevel;
-				});
+				        $activeLevelHolders.map(function(){ return $(this).attr( 'data-level' ); }).get() ),
+					$activeLevelHolder = $activeLevelHolders.filter(function(){
+						return $( this ).attr( 'data-level' ) == maxLevel;
+					});
 				returnValue = $activeLevelHolder;
 				return returnValue;
 			}
