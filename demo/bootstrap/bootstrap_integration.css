@@ -1,0 +1,12 @@
+body {
+	background: #243342;
+}
+
+#pushobj {
+    margin-left: 40px;
+}
+
+#menu {
+    -ms-opacity: 0.95;
+    opacity: 0.95;
+}
