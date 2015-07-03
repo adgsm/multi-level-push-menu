@@ -21,7 +21,7 @@ This jQuery plugin is inspired by [Codrops](http://tympanus.net/codrops/2013/08/
 ####Include the CSS
 multilevelpushmenu.css can be modified to fit website design
 
-FontAvesome (icons)
+FontAwesome (icons)
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css">
 Font I like (use any other you like)
