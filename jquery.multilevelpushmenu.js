@@ -43,6 +43,9 @@
 				preventItemClick: true,
 				preventGroupItemClick: true,
 				swipe: 'both',
+				durationSlideOut: 400,
+				durationSlideDown: 500,
+				durationTransition: 400,
 				onCollapseMenuStart: function() {},
 				onCollapseMenuEnd: function() {},
 				onExpandMenuStart: function() {},
@@ -595,12 +598,12 @@
 					if( instance.settings.direction == 'rtl' ) {
 						$baseLevelHolder.stop().animate({
 							marginRight: ( ( -1 ) * $baseLevelHolder.width() + ( ( instance.settings.fullCollapse ) ? 0 : instance.settings.overlapWidth ) )
-						})
+						}, instance.settings.durationSlideOut)
 					}
 					else {
 						$baseLevelHolder.stop().animate({
 							marginLeft:  ( ( -1 ) * $baseLevelHolder.width() + ( ( instance.settings.fullCollapse ) ? 0 : instance.settings.overlapWidth ) )
-						});
+						}, instance.settings.durationSlideOut);
 					}
 				}
 			}
@@ -616,7 +619,7 @@
 					$( this ).stop().animate({
 						marginLeft:  lM + ( ( instance.settings.direction == 'rtl' ) ? (-1) : 1 ) * absMove,
 						marginRight: rM + ( ( instance.settings.direction == 'rtl' ) ? 1 : (-1) ) * absMove
-					});
+					}, instance.settings.durationSlideOut);
 				});
 			}
 
@@ -679,13 +682,13 @@
 							$( val ).stop().animate({
 								marginRight : ( (-1) * lwidth ),
 								width: lwidth
-							});
+							}, instance.settings.durationTransition);
 						}
 						else {
 							$( val ).stop().animate({
 								marginLeft : ( (-1) * lwidth ),
 								width: lwidth
-							});
+							}, instance.settings.durationTransition);
 						}
 					});
 					collapingObjects[ 'nextAnimEnded' ] = ( $nextLevelHolders.length > 0 ) ? false : true ;
@@ -713,9 +716,9 @@
 										( ( -1 ) * $( val ).width() + ( ( instance.settings.mode == 'overlap' ) ? $nextLevelHolders.length + 1 : 1 ) * instance.settings.overlapWidth )
 									:
 									0
-							}, function(){
+							}, instance.settings.durationSlideOut, function(){
 								if( $( val ).attr( 'data-level' ) == $baseLevelHolder.attr( 'data-level' ) && collapseAll ){
-									$baseLevelHolder.children( 'ul' ).first().hide(500, function(){
+									$baseLevelHolder.children( 'ul' ).first().hide(instance.settings.durationSlideDown, function(){
 										$baseLevelHolder.addClass( instance.settings.menuInactiveClass );
 									});
 								}
@@ -733,9 +736,9 @@
 										( ( -1 ) * $( val ).width() + ( ( instance.settings.mode == 'overlap' ) ? $nextLevelHolders.length + 1 : 1 ) * instance.settings.overlapWidth )
 									:
 									0
-							}, function(){
+							}, instance.settings.durationSlideOut, function(){
 								if( $( val ).attr( 'data-level' ) == $baseLevelHolder.attr( 'data-level' ) && collapseAll ){
-									$baseLevelHolder.children( 'ul' ).first().hide(500, function(){
+									$baseLevelHolder.children( 'ul' ).first().hide(instance.settings.durationSlideDown, function(){
 										$baseLevelHolder.addClass( instance.settings.menuInactiveClass );
 									});
 								}
@@ -790,8 +793,8 @@
 					if( instance.settings.direction == 'rtl' ) {
 						$baseLevelHolder.stop().animate({
 							marginRight: 0
-						},function(){
-							$baseLevelHolder.children( 'ul' ).first().show(500 , function(){
+						}, instance.settings.durationSlideOut, function(){
+							$baseLevelHolder.children( 'ul' ).first().show(instance.settings.durationSlideDown , function(){
 								expandingObjects[ 'baseAnimEnded' ] = true;
 								animatedEventCallback( expandingObjects , callbacks );
 							});
@@ -800,8 +803,8 @@
 					else {
 						$baseLevelHolder.stop().animate({
 							marginLeft: 0
-						},function(){
-							$baseLevelHolder.children( 'ul' ).first().show(500 , function(){
+						}, instance.settings.durationSlideOut, function(){
+							$baseLevelHolder.children( 'ul' ).first().show(instance.settings.durationSlideDown , function(){
 								expandingObjects[ 'baseAnimEnded' ] = true;
 								animatedEventCallback( expandingObjects , callbacks );
 							});
@@ -844,7 +847,7 @@
 									$( val ).stop().animate({
 										marginRight: 0,
 										width: ( instance.settings.mode == 'overlap' ) ? lwidth : baseWidth - ieShadowFilterDistortion
-									}, function(){
+									}, instance.settings.durationTransition, function(){
 										$( val ).addClass( instance.settings.menuInactiveClass );
 									});
 								}
@@ -852,7 +855,7 @@
 									$( val ).stop().animate({
 										marginLeft: 0,
 										width: ( instance.settings.mode == 'overlap' ) ? lwidth : baseWidth - ieShadowFilterDistortion
-									}, function(){
+									}, instance.settings.durationTransition, function(){
 										$( val ).addClass( instance.settings.menuInactiveClass );
 									});
 								}
