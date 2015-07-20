@@ -1,3 +1,4 @@
+$borderColor:#295685;
 .multilevelpushmenu_wrapper {
     margin: 0;
     min-height: 100%;
@@ -7,7 +8,7 @@
     position: absolute;
     .backItemClass {
         background: #2e6196;
-        border-top: 1px solid #295685;
+        border-top: 1px solid #{$borderColor};
         display: block;
         padding: .4em .4em .4em .4em;
     }
@@ -65,9 +66,9 @@
         overflow: hidden;
         padding: .2em .2em;
         text-decoration: none;
-        :hover {
-            color: #ffe;
-        }
+    }
+    a:hover {
+        color: #ffe;
     }
     h2 {
         color: #1f4164;
@@ -77,15 +78,15 @@
         padding: 0 .4em 0 .4em;
     }
     li {
-        border-top: 1px solid #295685;
+        border-top: 1px solid #{$borderColor};
         cursor: pointer;
         padding: .4em .4em .4em .4em;
     }
     li:hover {
-        background-color: #295685;
+        background-color: #{$borderColor};
     }
     li:last-child {
-        border-bottom: 1px solid #295685;
+        border-bottom: 1px solid #{$borderColor};
     }
     ul {
         list-style: none;
