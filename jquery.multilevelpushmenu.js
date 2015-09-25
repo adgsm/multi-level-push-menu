@@ -151,6 +151,7 @@
 				$element.on( event , function ( e , ee ) {
 					$element.hide();
 					try {
+						if(!e.pageX || !e.pageY) return false;
 						ee = ee || {
 							pageX: e.pageX,
 							pageY: e.pageY
