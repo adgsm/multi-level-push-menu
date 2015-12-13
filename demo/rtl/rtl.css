@@ -1,0 +1,12 @@
+body {
+	margin: 0;
+	padding: 0;
+	background: #243342;
+}
+
+#menu {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	height: 100%;
+}

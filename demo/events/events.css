@@ -1,0 +1,32 @@
+body {
+	margin: 0;
+	padding: 0;
+	background: #fff;
+}
+
+#pushobj {
+	position: absolute;
+	top: 7px;
+	left: 300px;
+	color: #000;
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 2em;
+	z-index: 1;
+}
+
+h3 {
+	font-size: .7em !important;
+}
+
+.panel {
+	width: 500px;
+}
+
+.panel-body {
+	font-size: .6em !important;
+}
+
+.panel-content {
+	max-height: 400px;
+	overflow: auto;
+}

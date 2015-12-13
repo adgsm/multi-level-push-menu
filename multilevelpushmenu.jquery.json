@@ -1,0 +1,36 @@
+{
+    "name": "multilevelpushmenu",
+    "title": "jQuery Multi-Level Push Menu",
+    "description": "Cross-browser compatible jQuery plug-in allowing endless nesting of navigation elements.",
+    "keywords": [
+        "menu",
+        "multi-level",
+        "push",
+        "animation"
+    ],
+    "version": "2.1.4",
+    "author": {
+        "name": "adgsm",
+        "url": "http://multi-level-push-menu.make.rs/humans.txt"
+    },
+    "maintainers": [
+        {
+            "name": "Momčilo Džunić",
+            "email": "it@make.rs",
+            "url": "http://multi-level-push-menu.make.rs"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://www.opensource.org/licenses/mit-license.php"
+        }
+    ],
+    "bugs": "https://github.com/adgsm/multi-level-push-menu/issues",
+    "homepage": "http://multi-level-push-menu.make.rs",
+    "docs": "http://multi-level-push-menu.make.rs",
+    "download": "http://multi-level-push-menu.make.rs",
+    "dependencies": {
+        "jquery": ">=1.10"
+    }
+}
