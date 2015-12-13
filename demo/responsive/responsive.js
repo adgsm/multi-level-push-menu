@@ -2,7 +2,7 @@ $(document).ready(function(){
 	// HTML markup implementation, overlap mode
 	$( '#menu' ).multilevelpushmenu({
 		containersToPush: [$( '#pushobj' )],
-		menuWidth: '25%',
+		menuWidth: '47%',
 		menuHeight: '100%'
 	});
 });

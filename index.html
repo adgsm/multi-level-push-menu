@@ -1,5 +1,1555 @@
-<html>
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Multi-Level Push Menu v2.1.4, https://github.com/adgsm/multi-level-push-menu</title>
+        <meta name="description" content="Multi-Level Push Menu, jQuery plug-in">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href='//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700&subset=latin,cyrillic-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css">
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+        <link href="//vjs.zencdn.net/4.2/video-js.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="//oss.maxcdn.com/libs/modernizr/2.6.2/modernizr.min.js"></script>
+        <script src="//google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+    </head>
     <body>
-        Hello world
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Fixed navbar -->
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand scroller" href="#home"><strong><i class="fa fa-home"></i></strong></a>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li><a class="scroller" href="#home">Home</a></li>
+                <li><a class="scroller" href="#features">Features</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usage<b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a class="scroller" href="#includecss">Include the CSS</a></li>
+                    <li><a class="scroller" href="#includejs">Include the JS</a></li>
+                    <li><a class="scroller" href="#htmlmarkup">HTML Markup</a></li>
+                    <li class="divider"></li>
+                    <li><a class="scroller" href="#jsmarkup">JS Array <small>(instead HTML markup)</small></a></li>
+                    <li class="divider"></li>
+                    <li><a class="scroller" href="#initialize">Initialize</a></li>
+                  </ul>
+                </li>
+                <li><a class="scroller" href="#options">Options</a></li>
+                <li><a class="scroller" href="#methods">Methods</a></li>
+                <li><a class="scroller" href="#events">Events</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Examples<b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a class="scroller" href="#examplebasichtml">Basic <small>(HTML Markup)</small></a></li>
+                    <li><a class="scroller" href="#examplecovermode">Cover mode</a></li>
+                    <li><a class="scroller" href="#examplefullexpandcollapse">Full menu collapse</a></li>
+                    <li><a class="scroller" href="#exampleresponsive">Responsive menu</a></li>
+                    <li><a class="scroller" href="#examplecollapsed">Initialize collapsed</a></li>
+                    <li><a class="scroller" href="#examplertl">Right-to-left sliding</a></li>
+                    <li><a class="scroller" href="#examplecustomsize">Custom size</a></li>
+                    <li><a class="scroller" href="#examplepushmany">Push many containers</a></li>
+                    <li class="divider"></li>
+                    <li><a class="scroller" href="#exampleoptions">Get/Set options</a></li>
+                    <li><a class="scroller" href="#exampleexpandcollapse">Expand/Collapse options</a></li>
+                    <li class="divider"></li>
+                    <li><a class="scroller" href="#exampleaddremove">Add/Remove items</a></li>
+                    <li class="divider"></li>
+                    <li><a class="scroller" href="#exampleevents">Events</a></li>
+                    <li class="divider"></li>
+                    <li><a class="scroller" href="#examplebasicjs">Basic <small>(JS Array)</small></a></li>
+                  </ul>
+                </li>
+                <li><a class="scroller" href="#license">License</a></li>
+              </ul>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li><a><iframe src="http://ghbtns.com/github-btn.html?user=adgsm&repo=multi-level-push-menu&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe></a></li>
+                <li><a><iframe src="http://ghbtns.com/github-btn.html?user=adgsm&repo=multi-level-push-menu&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="165" height="20"></iframe></a></li>
+                <li><a href="https://twitter.com/share" class="twitter-share-button" data-via="mdzunic" data-count="none" data-hashtags="multilevelpushmenu,jquery">Tweet</a></li>
+              </ul>
+
+            </div><!--/.nav-collapse -->
+          </div>
+        </div>
+
+        <div class="container" id="home">
+
+            <!-- Main component for a primary marketing message or call to action -->
+            <div class="jumbotron">
+                <h1>Multi-level push menu v2.1.4</h1>
+                <p>Multi-level push menu is cross-browser compatible jQuery plug-in allowing endless nesting of navigation elements.</p>
+                <p>Following basic, lightweight release v1, version v2 brings number of
+                exposed plug-in methods (<a class="scroller" href="#methods"><i>NEW! Redraw, Visible menus, Hidden menus, Propagate events</i></a>), options (<a class="scroller" href="#examplefullexpandcollapse"><i>NEW! Full menu collapse</i></a>) and events/callbacks (<a class="scroller" href="#events"><i>onMenuReady and onMenuSwipe added</i></a>). Release v2 now supports native mobile events. (<a class="scroller" href="#video"><i>NEW! Expand/Collapse navigation with a left/right swipe gesture</i></a>)</p>
+                <p>
+                    <a class="btn btn-lg btn-primary" href="//github.com/adgsm/multi-level-push-menu" role="button">Fork on GitHub <i class="fa fa-github"></i></a>
+                    <a class="btn btn-lg btn-info" href="download/MultiLevelPushMenu_v2.1.4.zip" role="button">Download v2 <i class="fa fa-download"></i></a>
+                    <a class="btn btn-lg btn-info" href="download/MultiLevelPushMenu_v1.0.0.zip" role="button">Download v1 <i class="fa fa-download"></i></a>
+                    <div class="btn-group">
+                    <button type="button" class="btn btn-lg btn-success">Watch Demo</button>
+                    <button type="button" class="btn btn-lg btn-success dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a target="_blank" href="demo/basichtml/basichtml.html">Basic <small>(HTML Markup)</small></a></li>
+                        <li><a target="_blank" href="demo/covermode/covermode.html">Cover mode</a></li>
+                        <li><a target="_blank" href="demo/fullexpandcollapse/fullexpandcollapse.html">Full Collapse</a></li>
+                        <li><a target="_blank" href="demo/responsive/responsive.html">Responsive menu</a></li>
+                        <li><a target="_blank" href="demo/collapsed/collapsed.html">Initialize collapsed</a></li>
+                        <li><a target="_blank" href="demo/rtl/rtl.html">Rigth-to-left sliding</a></li>
+                        <li><a target="_blank" href="demo/customsize/customsize.html">Custom size</a></li>
+                        <li><a target="_blank" href="demo/pushmany/pushmany.html">Push many containers</a></li>
+                        <li class="divider"></li>
+                        <li><a target="_blank" href="demo/options/options.html">Get/Set options</a></li>
+                        <li><a target="_blank" href="demo/expandcollapse/expandcollapse.html">Expand/Collapse options</a></li>
+                        <li class="divider"></li>
+                        <li><a target="_blank" href="demo/addremove/addremove.html">Add/Remove items</a></li>
+                        <li class="divider"></li>
+                        <li><a target="_blank" href="demo/events/events.html">Events</a></li>
+                        <li class="divider"></li>
+                        <li><a target="_blank" href="demo/bootstrap/bootstrap_integration.html">Bootstrap integration</a></li>
+                        <li><a target="_blank" href="demo/basicjs/basicjs.html">Basic <small>(JS Array)</small></a></li>
+                    </ul>
+                    </div>
+                </p>
+            </div>
+
+            <p>This jQuery plugin is inspired by <a href="http://tympanus.net/codrops/2013/08/13/multi-level-push-menu/" target="_blank">Codrops</a> MultiLevelPushMenu but unlike it not relaying on CSS 3D Transforms and therefore functional in older browsers too (i.e. IE 8).</p>
+
+            <hr />
+
+            <div id="features">
+                <div class="row featurette">
+                    <div class="col-md-7">
+                        <h2>Features</h2>
+                        <ul>
+                            <li>Multi-level menu support</li>
+                            <li>Endless nesting of navigation elements</li>
+                            <li>Expand/Collapse navigation with a left/right <a class="scroller" href="#video">swipe gesture</a></li>
+                            <li>Push/Slide DOM elements of choice</li>
+                            <li>Left-to-right and Right-to-left sliding directions</li>
+                            <li>Flexible, simple markup</li>
+                            <li>JS Array input, as HTML markup replacement</li>
+                            <li>A number of exposed Options (<a class="scroller" href="#options"><i>1 NEW!</i> added</a>), Methods (<a class="scroller" href="#exampleaddremove"><i>3 NEW!</i> added</a>) and Events</li>
+                            <li>Cross-browser compatibility
+                                <ul>
+                                    <li>Chrome</li>
+                                    <li>Midori</li>
+                                    <li>Firefox</li>
+                                    <li>Safari</li>
+                                    <li>IE8+</li>
+                                    <li>Opera 12.16</li>
+                                    <li>Android Browser 4.1.2</li>
+                                    <li>iOS Safari 7.0.1</li>
+                                </ul></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-5">
+                        <a href="demo/basichtml/basichtml.html" target="_blank"><img class="featurette-image img-responsive" data-src="holder.js/407x541/auto" alt="example" src="img/menu.png"></a>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+
+            <div id="video">
+                <h2>Video</h2>
+                <p>Swiping menus is also supported on desktops using mouse events, but it's more natural to be used on touch devices.
+                <br /><small>(video could be a bit choppy; for real experience open demo pages using your touch enabled device)</small></p>
+                <video id="multilevelpushmenu" class="video-js vjs-default-skin" controls preload="auto" width="758" height="494" poster="download/jQuery.multilevelpushmenu.png" data-setup='{}'>
+                    <source src="download/jQuery.multilevelpushmenu.webm" type='video/webm' />
+                    <source src="download/jQuery.multilevelpushmenu.mov" type='video/quicktime' />
+                    <source src="download/jQuery.multilevelpushmenu.mp4" type='video/mp4' />
+                    <source src="download/jQuery.multilevelpushmenu.ogv" type='video/ogg' />
+                    </video>
+                </video>
+            </div>
+            
+            <hr />
+
+            <div id="usage">
+                <h2>Usage</h2>
+                <h3 id="includecss">Include the CSS</h3>
+                <p>"multilevelpushmenu.css" can be modified to fit website design.</p>
+                <p>FontAvesome (icons)</p>
+                <pre class="prettyprint"><code>&lt;link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css"&gt;</code></pre>
+                <p>Font I like (use any other you like)</p>
+                <pre class="prettyprint"><code>&lt;link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700&subset=latin,cyrillic-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'&gt;</code></pre>
+                <p>Multi-Level-Push-Menu</p>
+                <pre class="prettyprint"><code>&lt;link rel="stylesheet" href="multilevelpushmenu.css" /&gt;</code></pre>
+
+                <h3 id="includejs">Include the JS</h3>
+                <p>jQuery</p>
+                <pre class="prettyprint"><code>&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"&gt;&lt;/script&gt;</code></pre>
+                <p>Modernizr (needed for IE8)</p>
+                <pre class="prettyprint"><code>&lt;script src="//oss.maxcdn.com/libs/modernizr/2.6.2/modernizr.min.js"&gt;&lt;/script&gt;</code></pre>
+                <p>Multi-Level-Push-Menu</p>
+                <pre class="prettyprint"><code>&lt;script src="jquery.multilevelpushmenu.min.js&gt;&lt;/script&gt;</code></pre>
+
+                <h3 id="htmlmarkup">HTML Markup</h3>
+                <p>Copy HTML markup below to create menu with exacty the same items like shown in Demo.</p>
+                <pre class="prettyprint"><code>&lt;div id="menu">
+  &lt;nav&gt;
+    &lt;h2&gt;&lt;i class="fa fa-reorder"&gt;&lt;/i&gt;All Categories&lt;/h2&gt;
+    &lt;ul&gt;
+        &lt;li&gt;
+            &lt;a href="#"&gt;&lt;i class="fa fa-laptop"&gt;&lt;/i&gt;Devices&lt;/a&gt;
+            &lt;h2&gt;&lt;i class="fa fa-laptop"&gt;&lt;/i&gt;Devices&lt;/h2&gt;
+            &lt;ul&gt;
+                &lt;li&gt;
+                    &lt;a href="#"&gt;&lt;i class="fa fa-phone"&gt;&lt;/i&gt;Mobile Phones&lt;/a&gt;
+                    &lt;h2&gt;&lt;i class="fa fa-phone"&gt;&lt;/i&gt;Mobile Phones&lt;/h2&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;
+                            &lt;a href="#"&gt;Super Smart Phone&lt;/a&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;
+                            &lt;a href="#"&gt;Thin Magic Mobile&lt;/a&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;
+                            &lt;a href="#"&gt;Performance Crusher&lt;/a&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;
+                            &lt;a href="#"&gt;Futuristic Experience&lt;/a&gt;
+                        &lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;a href="#"&gt;&lt;i class="fa fa-desktop"&gt;&lt;/i&gt;Televisions&lt;/a&gt;
+                    &lt;h2&gt;&lt;i class="fa fa-desktop"&gt;&lt;/i&gt;Televisions&lt;/h2&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;
+                            &lt;a href="#"&gt;Flat Super Screen&lt;/a&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;
+                            &lt;a href="#"&gt;Gigantic LED&lt;/a&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;
+                            &lt;a href="#"&gt;Power Eater&lt;/a&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;
+                            &lt;a href="#"&gt;3D Experience&lt;/a&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;
+                            &lt;a href="#"&gt;Classic Comfort&lt;/a&gt;
+                        &lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;a href="#"&gt;&lt;i class="fa fa-camera-retro"&gt;&lt;/i&gt;Cameras&lt;/a&gt;
+                    &lt;h2&gt;&lt;i class="fa fa-camera-retro"&gt;&lt;/i&gt;Cameras&lt;/h2&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;
+                            &lt;a href="#"&gt;Smart Shot&lt;/a&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;
+                            &lt;a href="#"&gt;Power Shooter&lt;/a&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;
+                            &lt;a href="#"&gt;Easy Photo Maker&lt;/a&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;
+                            &lt;a href="#"&gt;Super Pixel&lt;/a&gt;
+                        &lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;a href="#"&gt;&lt;i class="fa fa-book"&gt;&lt;/i&gt;Magazines&lt;/a&gt;
+            &lt;h2&gt;&lt;i class="fa fa-book"&gt;&lt;/i&gt;Magazines&lt;/h2&gt;
+            &lt;ul&gt;
+                &lt;li&gt;
+                    &lt;a href="#"&gt;National Geographics&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;a href="#"&gt;The Spectator&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;a href="#"&gt;Rambler&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;a href="#"&gt;Physics World&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;a href="#"&gt;The New Scientist&lt;/a&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;a href="#"&gt;&lt;i class="fa fa-shopping-cart"&gt;&lt;/i&gt;Store&lt;/a&gt;
+            &lt;h2&gt;&lt;i class="fa fa-shopping-cart"&gt;&lt;/i&gt;Store&lt;/h2&gt;
+            &lt;ul&gt;
+                &lt;li&gt;
+                    &lt;a href="#"&gt;&lt;i class="fa fa-tags"&gt;&lt;/i&gt;Clothes&lt;/a&gt;
+                    &lt;h2&gt;&lt;i class="fa fa-tags"&gt;&lt;/i&gt;Clothes&lt;/h2&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;
+                            &lt;a href="#"&gt;&lt;i class="fa fa-female"&gt;&lt;/i&gt;Women's Clothing&lt;/a&gt;
+                            &lt;h2&gt;&lt;i class="fa fa-female"&gt;&lt;/i&gt;Women's Clothing&lt;/h2&gt;
+                            &lt;ul&gt;
+                                &lt;li&gt;
+                                    &lt;a href="#"&gt;Tops&lt;/a&gt;
+                                &lt;/li&gt;
+                                &lt;li&gt;
+                                    &lt;a href="#"&gt;Dresses&lt;/a&gt;
+                                &lt;/li&gt;
+                                &lt;li&gt;
+                                    &lt;a href="#"&gt;Trousers&lt;/a&gt;
+                                &lt;/li&gt;
+                                &lt;li&gt;
+                                    &lt;a href="#"&gt;Shoes&lt;/a&gt;
+                                &lt;/li&gt;
+                                &lt;li&gt;
+                                    &lt;a href="#"&gt;Sale&lt;/a&gt;
+                                &lt;/li&gt;
+                            &lt;/ul&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;
+                            &lt;a href="#"&gt;&lt;i class="fa fa-male"&gt;&lt;/i&gt;Men's Clothing&lt;/a&gt;
+                            &lt;h2&gt;&lt;i class="fa fa-male"&gt;&lt;/i&gt;Men's Clothing&lt;/h2&gt;
+                            &lt;ul&gt;
+                                &lt;li&gt;
+                                    &lt;a href="#"&gt;Shirts&lt;/a&gt;
+                                &lt;/li&gt;
+                                &lt;li&gt;
+                                    &lt;a href="#"&gt;Trousers&lt;/a&gt;
+                                &lt;/li&gt;
+                                &lt;li&gt;
+                                    &lt;a href="#"&gt;Shoes&lt;/a&gt;
+                                &lt;/li&gt;
+                                &lt;li&gt;
+                                    &lt;a href="#"&gt;Sale&lt;/a&gt;
+                                &lt;/li&gt;
+                            &lt;/ul&gt;
+                        &lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;a href="#"&gt;Jewelry&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;a href="#"&gt;Music&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;a href="#"&gt;Grocery&lt;/a&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;a href="#"&gt;Collections&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;a href="#"&gt;Credits&lt;/a&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+&lt;/div&gt;</code></pre>
+
+                <h3 id="jsmarkup">JS Array <small>(instead HTML Markup)</small></h3>
+                <p>You can use JS Array instead of above HTML markup.</p>
+                <pre class="prettyprint"><code>&lt;script&gt;
+var arrMenu = [
+  {
+    title: 'All Categories',
+    id: 'menuID',
+    icon: 'fa fa-reorder',
+    items: [
+      {
+        name: 'Devices',
+        id: 'itemID',
+        icon: 'fa fa-laptop',
+        link: '#',
+        items: [
+          {
+            title: 'Devices',
+            icon: 'fa fa-laptop',
+            items: [
+              {
+                name: 'Mobile Phones',
+                icon: 'fa fa-phone',
+                link: '#',
+                items: [
+                  {
+                    title: 'Mobile Phones',
+                    icon: 'fa fa-phone',
+                    link: '#',
+                    items: [
+                      {
+                        name: 'Super Smart Phone',
+                        link: '#'
+                      },
+                      {
+                        name: 'Thin Magic Mobile',
+                        link: '#'
+                      },
+                      {
+                        name: 'Performance Crusher',
+                        link: '#'
+                      },
+                      {
+                        name: 'Futuristic Experience',
+                        link: '#'
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: 'Televisions',
+                icon: 'fa fa-desktop',
+                link: '#',
+                items: [
+                  {
+                    title: 'Televisions',
+                    icon: 'fa fa-desktop',
+                    link: '#',
+                    items: [
+                      {
+                        name: 'Flat Super Screen',
+                        link: '#'
+                      },
+                      {
+                        name: 'Gigantic LED',
+                        link: '#'
+                      },
+                      {
+                        name: 'Power Eater',
+                        link: '#'
+                      },
+                      {
+                        name: '3D Experience',
+                        link: '#'
+                      },
+                      {
+                        name: 'Classic Comfort',
+                        link: '#'
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: 'Cameras',
+                icon: 'fa fa-camera-retro',
+                link: '#',
+                items: [
+                  {
+                    title: 'Cameras',
+                    icon: 'fa fa-camera-retro',
+                    link: '#',
+                    items: [
+                      {
+                        name: 'Smart Shot',
+                        link: '#'
+                      },
+                      {
+                        name: 'Power Shooter',
+                        link: '#'
+                      },
+                      {
+                        name: 'Easy Photo Maker',
+                        link: '#'
+                      },
+                      {
+                        name: 'Super Pixel',
+                        link: '#'
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: 'Magazines',
+        icon: 'fa fa-book',
+        link: '#',
+        items: [
+          {
+            title: 'Magazines',
+            icon: 'fa fa-book',
+            items: [
+              {
+                name: 'National Geographics',
+                link: '#'
+              },
+              {
+                name: 'Scientific American',
+                link: '#'
+              },
+              {
+                name: 'The Spectator',
+                link: '#'
+              },
+              {
+                name: 'Rambler',
+                link: '#'
+              },
+              {
+                name: 'Physics World',
+                link: '#'
+              },
+              {
+                name: 'The New Scientist',
+                link: '#'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: 'Store',
+        icon: 'fa fa-shopping-cart',
+        link: '#',
+        items: [
+          {
+            title: 'Store',
+            icon: 'fa fa-shopping-cart',
+            items: [
+              {
+                name: 'Clothes',
+                icon: 'fa fa-tags',
+                link: '#',
+                items: [
+                  {
+                    title: 'Clothes',
+                    icon: 'fa fa-tags',
+                    items: [
+                      {
+                        name: 'Women\'s Clothing',
+                        icon: 'fa fa-female',
+                        link: '#',
+                        items: [
+                          {
+                            title: 'Women\'s Clothing',
+                            icon: 'fa fa-female',
+                            items: [
+                              {
+                                name: 'Tops',
+                                link: '#'
+                              },
+                              {
+                                name: 'Dresses',
+                                link: '#'
+                              },
+                              {
+                                name: 'Trousers',
+                                link: '#'
+                              },
+                              {
+                                name: 'Shoes',
+                                link: '#'
+                              },
+                              {
+                                name: 'Sale',
+                                link: '#'
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        name: 'Men\'s Clothing',
+                        icon: 'fa fa-male',
+                        link: '#',
+                        items: [
+                          {
+                            title: 'Men\'s Clothing',
+                            icon: 'fa fa-male',
+                            items: [
+                              {
+                                name: 'Shirts',
+                                link: '#'
+                              },
+                              {
+                                name: 'Trousers',
+                                link: '#'
+                              },
+                              {
+                                name: 'Shoes',
+                                link: '#'
+                              },
+                              {
+                                name: 'Sale',
+                                link: '#'
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: 'Jewelry',
+                link: '#'
+              },
+              {
+                name: 'Music',
+                link: '#'
+              },
+              {
+                name: 'Grocery',
+                link: '#'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: 'Collections',
+        link: '#'
+      },
+      {
+        name: 'Credits',
+        link: '#'
+      }
+    ]
+  }
+];
+&lt;/script&gt;</code></pre>
+            </div>
+
+            <hr />
+
+            <div id="initialize">
+                <h2>Initialize</h2>
+                <p>With HTML markup.</p>
+                <pre class="prettyprint"><code>&lt;script&gt;
+    $(document).ready(function(){
+        $('#menu').multilevelpushmenu();
+    });
+&lt;/script&gt;</code></pre>
+                <p>With JS Array.</p>
+                <pre class="prettyprint"><code>&lt;script&gt;
+    $(document).ready(function(){
+        $('#menu').multilevelpushmenu({
+            menu: arrMenu
+        });
+    });
+&lt;/script&gt;</code></pre>
+            </div>
+
+            <hr />
+
+            <div id="options">
+                <h2>Options</h2>
+                <p>Full list of options is provided below.</p>
+                <pre class="prettyprint"><code>container: $( '#menu' ),                                   // Holding container.
+containersToPush: [ $( '#content1' ), $( '#content2' ) ],  // Array of DOM elements to push/slide together with menu.
+collapsed: false,                                          // Initialize menu in collapsed/expanded mode
+menuID: 'multilevelpushmenu',                              // ID of the &lt;nav&gt; element.
+wrapperClass: 'multilevelpushmenu_wrapper',                // Wrapper CSS class.
+menuInactiveClass: 'multilevelpushmenu_inactive',          // CSS class for inactive wrappers.
+menu: arrMenu,                                             // JS array of menu items (if markup not provided).
+menuWidth: 0,                                              // Wrapper width (integer, '%', 'px', 'em').
+menuHeight: 0,                                             // Menu height (integer, '%', 'px', 'em').
+backText: 'Back',                                          // Text for 'Back' menu item.
+backItemClass: 'backItemClass',                            // CSS class for back menu item.
+backItemIcon: 'fa fa-angle-right',                         // FontAvesome icon used for back menu item.
+groupIcon: 'fa fa-angle-left',                             // FontAvesome icon used for menu items contaning sub-items.
+mode: 'overlap',                                           // Menu sliding mode: overlap/cover.
+overlapWidth: 40,                                          // Width in px of menu wrappers overlap
+preventItemClick: true,                                    // set to false if you do not need event callback functionality
+preventGroupItemClick: true,                               // set to false if you do not need event callback functionality
+direction: 'ltr',                                          // set to 'rtl' for reverse sliding direction
+fullCollapse: false,                                       // set to true to fully hide base level holder when collapsed
+swipe: 'both'                                              // or 'touchscreen', or 'desktop'</code></pre>
+            </div>
+
+            <hr />
+
+            <div id="methods">
+                <h2>Methods</h2>
+                <p>Full list of exposed methods is provided below.</p>
+                <pre class="prettyprint"><code>/**
+ * Initialize menu
+ */
+$('#menu').multilevelpushmenu();
+// or
+$('#menu').multilevelpushmenu('init');
+
+/**
+ * Collapse menu
+ */
+// Full collapse
+$('#menu').multilevelpushmenu('collapse');
+
+// Collapse menu down to level 1 (0 level represent root level expanded)
+$('#menu').multilevelpushmenu('collapse', 1);
+
+// Collapse menu down to the level of $menuLevelObject
+$('#menu').multilevelpushmenu('collapse', $menuLevelObject);
+
+// Collapse menu down to the level of menu level object with title 'Devices' (not really recommended since there could be many menu level objects with the same title; in such cases collasing will be unsuccessful)
+$('#menu').multilevelpushmenu('collapse', 'Devices');
+
+/**
+ * Expand menu
+ */
+// Menu expand from fully collapsed mode to level 0
+$('#menu').multilevelpushmenu('expand');
+
+// Expand menu up to the $menuLevelObject
+$('#menu').multilevelpushmenu('expand', $menuLevelObject);
+
+// Expand menu up to the menu level object with title 'Devices' (not recommended since there could be many menu level objects with the same title; in such cases expanding will be unsuccessful)
+$('#menu').multilevelpushmenu('expand', 'Devices');
+
+/**
+ * Menu Expanded?
+ * Check if menu level object is already expanded (returns true/false)
+ */
+$('#menu').multilevelpushmenu('menuexpanded', $menuLevelObject);
+
+/**
+ * Active (last expanded) menu level
+ * Returns active menu level object, or false if menu is fully collapsed
+ */
+$('#menu').multilevelpushmenu('activemenu');
+
+/**
+ * Find menu level(s) by title
+ * Provides collection of menu level objects matching provided menu title, or false if there is no match
+ */
+$('#menu').multilevelpushmenu('findmenusbytitle', 'Devices');
+
+/**
+ * Find menu item(s) by name
+ * Provides collection of menu item objects matching provided name, or false if there is no match
+ */
+$( '#menu' ).multilevelpushmenu( 'finditemsbyname' , 'Devices' );
+
+/**
+ * Find path to root of selected menu level object
+ * Provides chain collection of menu level objects (root menu level object to given menu level object), or false in case of error
+ */
+$('#menu').multilevelpushmenu('pathtoroot', $menuLevelObject);
+
+/**
+ * Find shared path or path differences of two given menu level objects
+ * Provides collection of shared menu level objects of two menu level objects if bool parameter is set to true, or collection of menu level objects representing differences if bool is false; or false if there is no match
+ */
+$('#menu').multilevelpushmenu('comparepaths', $menuLevelObject1, $menuLevelObject2, bool);
+
+// Shared path collection
+$('#menu').multilevelpushmenu('comparepaths', $menuLevelObject1, $menuLevelObject2, true);
+
+// Differences collection
+$('#menu').multilevelpushmenu('comparepaths', $menuLevelObject1, $menuLevelObject2, false);
+
+/**
+ * Get or Set plug-in options
+ * Get (if third parameter is not set) or Set selected plug-in option
+ */
+// Get
+$('#menu').multilevelpushmenu('option', 'mode');
+
+// Set
+$('#menu').multilevelpushmenu('option', 'mode', 'cover');
+
+/**
+ * Add/Remove menu item(s) with sub-menus
+ * 
+ */
+// Add
+$('#menu').multilevelpushmenu( 'additems' , itemsArray , $addToMenu , position );
+
+// Remove
+$('#menu').multilevelpushmenu( 'removeitems' , items );
+
+/**
+ * Redraw menus
+ * 
+ */
+$('#menu').multilevelpushmenu( 'redraw' );
+
+/**
+ * Visible menus
+ * 
+ */
+$('#menu').multilevelpushmenu( 'visiblemenus' );
+
+/**
+ * Hidden menus
+ * 
+ */
+$('#menu').multilevelpushmenu( 'hiddenmenus' );
+
+/**
+ * Propagate event to underneath layer
+ * 
+ */
+ $( '#menu' ).multilevelpushmenu( 'propagateevent' , $( '#menu' ) , 'mousedown' );</code></pre>
+                <h3>Responsive menu example</h3>
+                <pre class="prettyprint"><code>&lt;script&gt;
+$( '#menu' ).multilevelpushmenu({
+    menuWidth: '20%',
+    menuHeight: '100%'
+});
+$( window ).resize(function() {
+    $( '#menu' ).multilevelpushmenu( 'redraw' );
+});
+&lt;/script&gt;</code></pre>
+            </div>
+
+            <hr />
+
+            <div id="events">
+                <h2>Events/Callbacks</h2>
+                <p>Full list of events/callbacks is provided below.</p>
+                <p>Each callback provides following arguments. <small>(use <code>console.log(arguments)</code> inside callback method to see)</small><br />
+                <small><code>onMenuReady:</code>, <code>onCollapseMenuStart:</code>, <code>onCollapseMenuEnd:</code>, <code>onExpandMenuStart:</code>, <code>onExpandMenuEnd:</code></small>: plug-in <span class="label label-info">options</span> object.<br />
+                <small><code>onTitleItemClick:</code>, <code>onBackItemClick:</code></small>: <span class="label label-info">event</span> object, <span class="label label-info">menu level</span> object, plug-in <span class="label label-info">options</span> object.<br />
+                <small><code>onGroupItemClick:</code>, <code>onItemClick:</code></small>: <span class="label label-info">event</span> object, <span class="label label-info">menu level</span> object, <span class="label label-info">clicked item</span> object, plug-in <span class="label label-info">options</span> object.</p>
+                <pre class="prettyprint"><code>onCollapseMenuStart:               // Menu collapse started
+onCollapseMenuEnd:                 // Menu collapse ended
+onExpandMenuStart:                 // Menu expand started
+onExpandMenuEnd:                   // Menu expand ended
+onGroupItemClick:                  // Click/touchstart menu item containing sub-items
+onItemClick:                       // Click/touchstart menu item which doesn't contain sub-items
+onTitleItemClick:                  // Title icon click/touchstart
+onBackItemClick:                   // Back item click/touchstart
+onMenuReady:                       // Menu created and ready for use
+onMenuSwipe:                       // Menu swipe initiated</code></pre>
+                <h3>An event callback example</h3>
+                <p>Each event triggers a callback; An example using onItemClick event callback functionality.</p>
+                <pre class="prettyprint"><code>&lt;script&gt;
+$( '#menu' ).multilevelpushmenu({
+    onItemClick: function() {
+        // First argument is original event object
+        var event = arguments[0],
+            // Second argument is menu level object containing clicked item (&lt;div&gt; element)
+            $menuLevelHolder = arguments[1],
+            // Third argument is clicked item (&lt;li&gt; element)
+            $item = arguments[2],
+            // Fourth argument is instance settings/options object
+            options = arguments[3];
+
+        // You can do some cool stuff here before
+        // redirecting to href location
+        // like logging the event or even
+        // adding some parameters to href, etc...
+
+        // Anchor href
+        var itemHref = $item.find( 'a:first' ).attr( 'href' );
+        // Redirecting the page
+        location.href = itemHref;
+    }
+});
+&lt;/script&gt;</code></pre>
+                <h3>Managing custom DOM object events when using swiping on desktops</h3>
+                <p>If you will use swiping menus on desktops, mousedown bubble will be canceled and therefore any DOM object placed within menu item won't get focus when clicked.
+                To overcome this you can use originally triggered event returned as onItemClick's first argument. Below is an example showing how to set focus on input element, <a href="http://jsfiddle.net/5rjg9/1/" target="_blank">http://jsfiddle.net/5rjg9/1/</a></p>
+                <pre class="prettyprint"><code>&lt;script&gt;
+$(document).ready(function () {
+    $('#menu').multilevelpushmenu({
+        onItemClick: function () {
+            var e = arguments[0];
+            if ($(e.target).prop('tagName').toLowerCase() == 'input') {
+                $(e.target).focus();
+                $(e.target).val('focused');
+                $(e.target).unbind('blur');
+                $(e.target).blur(function(){
+                    $(e.target).val('blured');
+                });
+            }
+        }
+    });
+});
+&lt;/script&gt;</code></pre>
+                <p>or, <a href="http://jsfiddle.net/c5EA4/6/" target="_blank">http://jsfiddle.net/c5EA4/6/</a></p>
+                <pre class="prettyprint"><code>&lt;script&gt;
+$(document).ready(function () {
+    $('#menu').multilevelpushmenu({
+        onMenuSwipe: function () {
+            var e = arguments[0];
+            if ($(e.target).prop('tagName').toLowerCase() == 'input') return false;
+        }
+    });
+});
+&lt;/script&gt;</code></pre>
+                <p>Alternatively, you can set swipe option to 'touchscreen' and allow swiping menus only on touch-screen enabled devices.</p>
+            </div>
+
+            <hr />
+
+            <div id="examples">
+                <h2>Examples</h2>
+
+                <h3 id="examplebasichtml">Basic <small>(HTML Markup)</small></h3>
+                <pre class="prettyprint"><code>&lt;script&gt;
+$(document).ready(function(){
+    // HTML markup implementation, overlap mode
+    $( '#menu' ).multilevelpushmenu({
+        containersToPush: [$( '#pushobj' )]
+    });
+});
+&lt;/script&gt;</code></pre>
+                <a target="_blank" class="btn btn-lg btn-success" href="demo/basichtml/basichtml.html" role="button">Demo <i class="fa fa-external-link"></i></a>
+
+                <h3 id="examplecovermode">Cover mode</h3>
+                <pre class="prettyprint"><code>&lt;script&gt;
+$(document).ready(function(){
+    // HTML markup implementation, cover mode
+    $( '#menu' ).multilevelpushmenu({
+        containersToPush: [$( '#pushobj' )],
+        mode: 'cover'
+    });
+});
+&lt;/script&gt;</code></pre>
+                <a target="_blank" class="btn btn-lg btn-success" href="demo/covermode/covermode.html" role="button">Demo <i class="fa fa-external-link"></i></a>
+
+                <h3 id="examplefullexpandcollapse">Full menu collapse</h3>
+                <pre class="prettyprint"><code>&lt;script&gt;
+$(document).ready(function(){
+    // HTML markup implementation, overlap mode
+    $( '#menu' ).multilevelpushmenu({
+        containersToPush: [$( '#pushobj' )],
+        fullCollapse: true
+    });
+});
+&lt;/script&gt;</code></pre>
+                <a target="_blank" class="btn btn-lg btn-success" href="demo/fullexpandcollapse/fullexpandcollapse.html" role="button">Demo <i class="fa fa-external-link"></i></a>
+
+                <h3 id="exampleresponsive">Responsive menu</h3>
+                <pre class="prettyprint"><code>&lt;script&gt;
+$(document).ready(function(){
+    // HTML markup implementation, overlap mode
+    $( '#menu' ).multilevelpushmenu({
+        containersToPush: [$( '#pushobj' )],
+        menuWidth: '25%',
+        menuHeight: '100%'
+    });
+});
+
+$(window).resize(function () {
+    $( '#menu' ).multilevelpushmenu( 'redraw' );
+});
+&lt;/script&gt;</code></pre>
+                <a target="_blank" class="btn btn-lg btn-success" href="demo/responsive/responsive.html" role="button">Demo <i class="fa fa-external-link"></i></a>
+
+                <h3 id="examplecollapsed">Initialize collapsed</h3>
+                <pre class="prettyprint"><code>&lt;script&gt;
+$(document).ready(function(){
+    // HTML markup implementation, overlap mode, initilaize collapsed
+    $( '#menu' ).multilevelpushmenu({
+        containersToPush: [$( '#pushobj' )],
+        collapsed: true
+    });
+});
+&lt;/script&gt;</code></pre>
+                <a target="_blank" class="btn btn-lg btn-success" href="demo/collapsed/collapsed.html" role="button">Demo <i class="fa fa-external-link"></i></a>
+
+                <h3 id="examplertl">Right-to-left sliding</h3>
+                <pre class="prettyprint"><code>&lt;script&gt;
+$(document).ready(function(){
+    // HTML markup implementation, overlap mode, rigth-to-left sliding
+    $( '#menu' ).multilevelpushmenu({
+        direction: 'rtl',
+        backItemIcon: 'fa fa-angle-left',
+        groupIcon: 'fa fa-angle-right'
+    });
+});
+&lt;/script&gt;</code></pre>
+                <a target="_blank" class="btn btn-lg btn-success" href="demo/rtl/rtl.html" role="button">Demo <i class="fa fa-external-link"></i></a>
+
+                <h3 id="examplecustomsize">Custom size</h3>
+                <pre class="prettyprint"><code>&lt;script&gt;
+$(document).ready(function(){
+    // HTML markup implementation, overlap mode
+    $( '#menu' ).multilevelpushmenu({
+        containersToPush: [$( '#pushobj' )],
+        menuWidth: 450, // '450px', '30em', '25%' will also work
+        menuHeight: 500
+    });
+});
+&lt;/script&gt;</code></pre>
+                <a target="_blank" class="btn btn-lg btn-success" href="demo/customsize/customsize.html" role="button">Demo <i class="fa fa-external-link"></i></a>
+
+                <h3 id="examplepushmany">Push many containers</h3>
+                <pre class="prettyprint"><code>&lt;script&gt;
+$(document).ready(function(){
+    // HTML markup implementation, overlap mode, push 3 DOM elements
+    $( '#menu' ).multilevelpushmenu({
+        containersToPush: [$( '#pushobj' ), $( '#pushthisobjalso' ), $( '#pushthisobjtoo' )]
+    });
+});
+&lt;/script&gt;</code></pre>
+                <a target="_blank" class="btn btn-lg btn-success" href="demo/pushmany/pushmany.html" role="button">Demo <i class="fa fa-external-link"></i></a>
+
+                <h3 id="exampleoptions">Get/Set options</h3>
+                <pre class="prettyprint"><code>&lt;script&gt;
+$(document).ready(function(){
+    // HTML markup implementation, overlap mode
+    $( '#menu' ).multilevelpushmenu({
+        containersToPush: [$( '#pushobj' )]
+    });
+
+    // Get value for mode option
+    $( '#getMode' ).click(function(){
+        $( this ).find( 'span' ).text( $( '#menu' ).multilevelpushmenu( 'option', 'mode' ) );
+    });
+
+    // Set value for mode option
+    $( '#setMode' ).click(function(){
+        // Collapse menu first to ensure good functionality after mode change
+        $( '#menu' ).multilevelpushmenu( 'collapse', 0 );
+        // Toggle mode
+        $( '#menu' ).multilevelpushmenu( 'option', 'mode') == 'overlap' ? 
+            $( this ).find( 'span' ).text( $( '#menu' ).multilevelpushmenu( 'option', 'mode', 'cover' ) ) : $( this ).find( 'span' ).text( $( '#menu' ).multilevelpushmenu( 'option', 'mode', 'overlap' ) );
+        // Update getMode button info
+        $( '#getMode' ).find( 'span' ).text( $( '#menu' ).multilevelpushmenu( 'option', 'mode' ) );
+    });
+});
+&lt;/script&gt;</code></pre>
+                <a target="_blank" class="btn btn-lg btn-success" href="demo/options/options.html" role="button">Demo <i class="fa fa-external-link"></i></a>
+
+                <h3 id="exampleexpandcollapse">Expand/Collapse options</h3>
+                <pre class="prettyprint"><code>&lt;script&gt;
+$(document).ready(function(){
+    // HTML markup implementation, overlap mode
+    $( '#menu' ).multilevelpushmenu({
+        containersToPush: [$( '#pushobj' )]
+    });
+
+    // Full collapse
+    $( '#fullcollapse' ).click(function(){
+        $( '#menu' ).multilevelpushmenu( 'collapse' );
+    });
+
+    // Base expand
+    $( '#baseexpand' ).click(function(){
+        $( '#menu' ).multilevelpushmenu( 'expand' );
+    });
+
+    // Expand to Men's Clothing
+    $( '#expandmensclothing' ).click(function(){
+        // Use menu title for expanding just in case you know that there
+        // is only one menu item with such title. If there are more menus
+        // with same title, expand/collapse invoked with
+        // title name as parameter won't work.
+        $( '#menu' ).multilevelpushmenu( 'expand' , 'Men\'s Clothing' );
+        
+        // More safe way is to use methods like
+        // $( '#menu' ).multilevelpushmenu( 'findmenusbytitle' , 'Mobile Phones' );
+        // and then invoke expand method with desired menu level object
+        // (e.g. if we have several menu objects with title 'Mobile Phones' but
+        // we want to expand the first one)
+        // var $phonemenu = $( '#menu' ).multilevelpushmenu( 'findmenusbytitle' , 'Mobile Phones' ).first();
+        // and then
+        // $( '#menu' ).multilevelpushmenu( 'expand' , $phonemenu );
+    });
+
+    // Expand to Mobile Phones
+    $( '#expandmobilephones' ).click(function(){
+        // Use menu title for expanding just in case you know that there
+        // is only one menu item with such title. If there are more menus
+        // with same title, expand/collapse invoked with
+        // title name as parameter won't work.
+        $( '#menu' ).multilevelpushmenu( 'expand' , 'Mobile Phones' );
+        
+        // More safe way is to use methods like
+        // $( '#menu' ).multilevelpushmenu( 'findmenusbytitle' , 'Mobile Phones' );
+        // and then invoke expand method with desired menu level object
+        // (e.g. if we have several menu objects with title 'Mobile Phones' but
+        // we want to expand the first one)
+        // var $phonemenu = $( '#menu' ).multilevelpushmenu( 'findmenusbytitle' , 'Mobile Phones' ).first();
+        // and then
+        // $( '#menu' ).multilevelpushmenu( 'expand' , $phonemenu );
+    });
+
+    // Collapse to the level of 'Devices' menu
+    $( '#collapsedevices' ).click(function(){
+        // Have in mind that this will collapse to the level of 'Devices'
+        // menu (level 1 in our case). So even when open path is not containing
+        // 'Devices' menu it will collapse expanded menus to level 1; it's
+        // basically the same as
+        // $( '#menu' ).multilevelpushmenu( 'collapse' , 1 );
+        $( '#menu' ).multilevelpushmenu( 'collapse' , 'Devices' );
+    });
+});
+&lt;/script&gt;</code></pre>
+                <a target="_blank" class="btn btn-lg btn-success" href="demo/expandcollapse/expandcollapse.html" role="button">Demo <i class="fa fa-external-link"></i></a>
+
+                <h3 id="exampleaddremove">Add/Remove items</h3>
+                <pre class="prettyprint"><code>&lt;script&gt;
+$(document).ready(function(){
+    // HTML markup implementation, overlap mode
+    $( '#menu' ).multilevelpushmenu({
+        containersToPush: [$( '#pushobj' )]
+    });
+
+    // Expand to Mobile Phones where we will add two
+    // additional menu items with sub-menus
+    $( '#menu' ).multilevelpushmenu( 'expand' , $( '#menu' ).multilevelpushmenu( 'findmenusbytitle' , 'Mobile Phones' ).first() );
+
+    // Add iPhone and Samsung items to Mobile Phones menu at position 0
+    $( '#additems' ).click(function(){
+        var $addTo = $( '#menu' ).multilevelpushmenu( 'findmenusbytitle' , 'Mobile Phones' ).first();
+        $( '#menu' ).multilevelpushmenu( 'additems' , addItems , $addTo , 0 );
+    })
+
+    // Remove Samsung item
+    $( '#removeitems' ).click(function(){
+        var item = $( '#menu' ).multilevelpushmenu( 'finditemsbyname' , 'Samsung' );
+        $( '#menu' ).multilevelpushmenu( 'removeitems' , item );
+    })
+
+});
+
+var addItems = [
+    {
+        name: 'iPhone',
+        id: 'iPhoneItem',
+        icon: 'fa fa-phone-square',
+        link: '#',
+        items: [
+            {
+                title: 'iPhones',
+                id: 'iPhonesMenu',
+                icon: 'fa fa-phone-square',
+                items: [
+                    {
+                        name: 'iPhone 4',
+                        icon: 'fa fa-phone-square',
+                        link: '#'
+                    },
+                    {
+                        name: 'iPhone 5',
+                        icon: 'fa fa-phone-square',
+                        link: '#'
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        name: 'Samsung',
+        icon: 'fa fa-phone-square',
+        link: '#',
+        items: [
+            {
+                title: 'Samsung',
+                icon: 'fa fa-phone-square',
+                items: [
+                    {
+                        name: 'Samsung Galaxy S II',
+                        icon: 'fa fa-phone-square',
+                        link: '#'
+                    },
+                    {
+                        name: 'Samsung Galaxy S III',
+                        icon: 'fa fa-phone-square',
+                        link: '#'
+                    },
+                    {
+                        name: 'Samsung Galaxy S IV',
+                        icon: 'fa fa-phone-square',
+                        link: '#'
+                    }
+                ]
+            }
+        ]
+    }
+];
+&lt;/script&gt;</code></pre>
+                <a target="_blank" class="btn btn-lg btn-success" href="demo/addremove/addremove.html" role="button">Demo <i class="fa fa-external-link"></i></a>
+
+                <h3 id="exampleevents">Events</h3>
+                <pre class="prettyprint"><code>&lt;script&gt;
+$(document).ready(function(){
+    // HTML markup implementation, overlap mode
+    $( '#menu' ).multilevelpushmenu({
+        containersToPush: [$( '#pushobj' )],
+        onCollapseMenuStart: function() {
+            $( '#eventpanel' ).append( '&lt;br /&gt;Started collapsing...' );
+            //console.log(arguments);
+        },
+        onCollapseMenuEnd: function() {
+            $( '#eventpanel' ).append( '&lt;br /&gt;Collapsing ended!' );
+            //console.log(arguments);
+        },
+        onExpandMenuStart: function() {
+            $( '#eventpanel' ).append( '&lt;br /&gt;Started expanding...' );
+            //console.log(arguments);
+        },
+        onExpandMenuEnd: function() {
+            $( '#eventpanel' ).append( '&lt;br /&gt;Expanding ended!' );
+            //console.log(arguments);
+        },
+        onTitleItemClick: function() {
+            var event = arguments[0],
+                $menuLevelHolder = arguments[1],
+                options = arguments[2],
+                title = $menuLevelHolder.find( 'h2:first' ).text();
+
+            $( '#eventpanel' ).append( '&lt;br /&gt;Title item &lt;i&gt;' + title + '&lt;/i&gt; clicked!' );
+            //console.log(arguments);
+        },
+        onBackItemClick: function() {
+            var event = arguments[0],
+                $menuLevelHolder = arguments[1],
+                options = arguments[2],
+                title = $menuLevelHolder.find( 'h2:first' ).text();
+
+            $( '#eventpanel' ).append( '&lt;br /&gt;Back item on &lt;i&gt;' + title + '&lt;/i&gt; menu level clicked!' );
+            //console.log(arguments);
+        },
+        onGroupItemClick: function() {
+            var event = arguments[0],
+                $menuLevelHolder = arguments[1],
+                $item = arguments[2],
+                options = arguments[3],
+                title = $menuLevelHolder.find( 'h2:first' ).text(),
+                itemName = $item.find( 'a:first' ).text();
+
+            $( '#eventpanel' ).append( '&lt;br /&gt;Group Item &lt;i&gt;' + itemName + '&lt;/i&gt;' + ' on &lt;i&gt;' + title + '&lt;/i&gt; menu level clicked!' );
+            //console.log(arguments);
+        },
+        onItemClick: function() {
+            var event = arguments[0],
+                $menuLevelHolder = arguments[1],
+                $item = arguments[2],
+                options = arguments[3],
+                title = $menuLevelHolder.find( 'h2:first' ).text(),
+                itemName = $item.find( 'a:first' ).text();
+
+            $( '#eventpanel' ).append( '&lt;br /&gt;Item &lt;i&gt;' + itemName + '&lt;/i&gt;' + ' on &lt;i&gt;' + title + '&lt;/i&gt; menu level clicked!' );
+            //console.log(arguments);
+        }
+    });
+});
+&lt;/script&gt;</code></pre>
+                <a target="_blank" class="btn btn-lg btn-success" href="demo/events/events.html" role="button">Demo <i class="fa fa-external-link"></i></a>
+            </div>
+
+                <h3 id="examplebasicjs">Basic <small>(JS Array)</small></h3>
+                <pre class="prettyprint"><code>&lt;script&gt;
+$(document).ready(function(){
+    // JS Array implementation, overlap mode
+    $( '#menu' ).multilevelpushmenu({
+        menu: arrMenu,
+        containersToPush: [$( '#pushobj' )]
+    });
+});
+
+// JS Aray instead HTML Markup
+
+var arrMenu = [
+    {
+        title: 'All Categories',
+        icon: 'fa fa-reorder',
+        items: [
+            {
+                name: 'Devices',
+                icon: 'fa fa-laptop',
+                link: '#',
+                items: [
+                    {
+                        title: 'Devices',
+                        icon: 'fa fa-laptop',
+                        items: [
+                            {
+                                name: 'Mobile Phones',
+                                icon: 'fa fa-phone',
+                                link: '#',
+                                items: [
+                                    {
+                                        title: 'Mobile Phones',
+                                        icon: 'fa fa-phone',
+                                        link: '#',
+                                        items: [
+                                            {
+                                                name: 'Super Smart Phone',
+                                                link: '#'
+                                            },
+                                            {
+                                                name: 'Thin Magic Mobile',
+                                                link: '#'
+                                            },
+                                            {
+                                                name: 'Performance Crusher',
+                                                link: '#'
+                                            },
+                                            {
+                                                name: 'Futuristic Experience',
+                                                link: '#'
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                name: 'Televisions',
+                                icon: 'fa fa-desktop',
+                                link: '#',
+                                items: [
+                                    {
+                                        title: 'Televisions',
+                                        icon: 'fa fa-desktop',
+                                        link: '#',
+                                        items: [
+                                            {
+                                                name: 'Flat Super Screen',
+                                                link: '#'
+                                            },
+                                            {
+                                                name: 'Gigantic LED',
+                                                link: '#'
+                                            },
+                                            {
+                                                name: 'Power Eater',
+                                                link: '#'
+                                            },
+                                            {
+                                                name: '3D Experience',
+                                                link: '#'
+                                            },
+                                            {
+                                                name: 'Classic Comfort',
+                                                link: '#'
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                name: 'Cameras',
+                                icon: 'fa fa-camera-retro',
+                                link: '#',
+                                items: [
+                                    {
+                                        title: 'Cameras',
+                                        icon: 'fa fa-camera-retro',
+                                        link: '#',
+                                        items: [
+                                            {
+                                                name: 'Smart Shot',
+                                                link: '#'
+                                            },
+                                            {
+                                                name: 'Power Shooter',
+                                                link: '#'
+                                            },
+                                            {
+                                                name: 'Easy Photo Maker',
+                                                link: '#'
+                                            },
+                                            {
+                                                name: 'Super Pixel',
+                                                link: '#'
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: 'Magazines',
+                icon: 'fa fa-book',
+                link: '#',
+                items: [
+                    {
+                        title: 'Magazines',
+                        icon: 'fa fa-book',
+                        items: [
+                            {
+                                name: 'National Geographics',
+                                link: '#'
+                            },
+                            {
+                                name: 'Scientific American',
+                                link: '#'
+                            },
+                            {
+                                name: 'The Spectator',
+                                link: '#'
+                            },
+                            {
+                                name: 'Rambler',
+                                link: '#'
+                            },
+                            {
+                                name: 'Physics World',
+                                link: '#'
+                            },
+                            {
+                                name: 'The New Scientist',
+                                link: '#'
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: 'Store',
+                icon: 'fa fa-shopping-cart',
+                link: '#',
+                items: [
+                    {
+                        title: 'Store',
+                        icon: 'fa fa-shopping-cart',
+                        items: [
+                            {
+                                name: 'Clothes',
+                                icon: 'fa fa-tags',
+                                link: '#',
+                                items: [
+                                    {
+                                        title: 'Clothes',
+                                        icon: 'fa fa-tags',
+                                        items: [
+                                            {
+                                                name: 'Women\'s Clothing',
+                                                icon: 'fa fa-female',
+                                                link: '#',
+                                                items: [
+                                                    {
+                                                        title: 'Women\'s Clothing',
+                                                        icon: 'fa fa-female',
+                                                        items: [
+                                                            {
+                                                                name: 'Tops',
+                                                                link: '#'
+                                                            },
+                                                            {
+                                                                name: 'Dresses',
+                                                                link: '#'
+                                                            },
+                                                            {
+                                                                name: 'Trousers',
+                                                                link: '#'
+                                                            },
+                                                            {
+                                                                name: 'Shoes',
+                                                                link: '#'
+                                                            },
+                                                            {
+                                                                name: 'Sale',
+                                                                link: '#'
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                name: 'Men\'s Clothing',
+                                                icon: 'fa fa-male',
+                                                link: '#',
+                                                items: [
+                                                    {
+                                                        title: 'Men\'s Clothing',
+                                                        icon: 'fa fa-male',
+                                                        items: [
+                                                            {
+                                                                name: 'Shirts',
+                                                                link: '#'
+                                                            },
+                                                            {
+                                                                name: 'Trousers',
+                                                                link: '#'
+                                                            },
+                                                            {
+                                                                name: 'Shoes',
+                                                                link: '#'
+                                                            },
+                                                            {
+                                                                name: 'Sale',
+                                                                link: '#'
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                name: 'Jewelry',
+                                link: '#'
+                            },
+                            {
+                                name: 'Music',
+                                link: '#'
+                            },
+                            {
+                                name: 'Grocery',
+                                link: '#'
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: 'Collections',
+                link: '#'
+            },
+            {
+                name: 'Credits',
+                link: '#'
+            }
+        ]
+    }
+];
+&lt;/script&gt;</code></pre>
+                <a target="_blank" class="btn btn-lg btn-success" href="demo/basicjs/basicjs.html" role="button">Demo <i class="fa fa-external-link"></i></a>
+
+            <hr />
+
+            <div id="license">
+                <h2>License</h2>
+                <p>Licensed under the MIT license. <a href="http://www.opensource.org/licenses/mit-license.php">http://www.opensource.org/licenses/mit-license.php</a></p>
+            </div>
+        </div> <!-- /container -->
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+        <script src="js/vendor/jquery.easing/jquery.easing.1.3.js"></script>
+        <script src="//vjs.zencdn.net/4.2/video.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+
+        <!-- Google Analytics -->
+        <script type="text/javascript">
+
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-45795667-3']);
+          _gaq.push(['_setDomainName', 'make.rs']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+
+        </script>
     </body>
 </html>
