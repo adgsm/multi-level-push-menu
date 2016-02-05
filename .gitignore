@@ -1,5 +1,4 @@
-<<<<<<< HEAD
 **/.DS_Store
-=======
-/nbproject/
->>>>>>> 53d4d2a9c15594aa0492de81dc142b42eb25ff29
+**/Gruntfile.js
+**/node_modules/
+**/.directory

@@ -14,16 +14,46 @@ $(document).ready(function(){
 
 	// Add iPhone and Samsung items
 	$( '#additems' ).click(function(){
-		var $addTo = $( '#menu' ).multilevelpushmenu( 'findmenusbytitle' , 'Mobile Phones' ).first();
+		var $addTo = $('#menu').multilevelpushmenu('activemenu').first();
 		$( '#menu' ).multilevelpushmenu( 'additems' , addItems , $addTo , 0 );
-	})
+	});
 
 	// Remove Samsung items
 	$( '#removeitems' ).click(function(){
 		var item = $( '#menu' ).multilevelpushmenu( 'finditemsbyname' , 'Samsung' );
 		$( '#menu' ).multilevelpushmenu( 'removeitems' , item );
-	})
+	});
 
+	// Add counter items
+	$( '#counteritems' ).click(function(){
+		var $addTo = $('#menu').multilevelpushmenu('activemenu').first(),
+			index = ( $addTo ) ? $addTo.children( 'ul' ).children( 'li' ).length : 0;
+			item = [
+				{
+					name: 'Item ' + index,
+					link: '#',
+					items: [
+					{
+						title: 'Item ' + index,
+						icon: 'fa fa-bookmark',
+						items: [
+						{
+							name: 'Item Info',
+							icon: 'fa fa-info-circle',
+							link: '#'
+						},
+						{
+							name: 'Delete Item',
+							id: 'deleteItem',
+							icon: 'fa fa-trash-o',
+							link: '#'
+						}
+					  ]
+					}]
+				}
+			];
+		$('#menu').multilevelpushmenu('additems', item, $addTo , index );
+	});
 });
 
 var addItems = [

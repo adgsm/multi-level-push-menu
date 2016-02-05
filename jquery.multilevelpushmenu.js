@@ -342,8 +342,8 @@
 					position = arguments[2],
 					$itemGroup = $levelHolder.find( 'ul:first' ),
 					$item = $( "<li />" );
-					( position < ( $itemGroup.find( 'li' ).length ) && position >= 0 ) ? 
-						$item.insertBefore( $itemGroup.find( 'li' ).eq( position ) ) : $item.appendTo( $itemGroup );
+					( position < ( $itemGroup.children( 'li' ).length ) && position >= 0 ) ? 
+						$item.insertBefore( $itemGroup.children( 'li' ).eq( position ) ) : $item.appendTo( $itemGroup );
 					$item.attr( { "style" : "text-align: " + ( ( instance.settings.direction == 'rtl' ) ? "right" : "left" ) } );
 				    if( item.id != undefined ) $item.attr( { "id" : item.id } );
 					var $itemAnchor = $( "<a />" )

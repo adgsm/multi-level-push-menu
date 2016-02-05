@@ -1,0 +1,30 @@
+{
+    "name": "multilevelpushmenu",
+    "title": "jQuery Multi-Level Push Menu",
+    "description": "Cross-browser compatible jQuery plug-in allowing endless nesting of navigation elements.",
+    "version": "2.1.4",
+    "license": "MIT",
+    "bugs": "https://github.com/adgsm/multi-level-push-menu/issues",
+    "homepage": "http://multi-level-push-menu.make.rs",
+    "docs": "http://multi-level-push-menu.make.rs",
+    "download": "http://multi-level-push-menu.make.rs",
+    "dependencies": {
+        "jquery": ">=1.10"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/adgsm/multi-level-push-menu.git"
+    },
+    "main": "Gruntfile.js",
+    "directories": {
+      "doc": "docs"
+    },
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "devDependencies": {
+      "grunt": "^0.4.5",
+      "grunt-contrib-cssmin": "^0.14.0",
+      "grunt-contrib-uglify": "^0.11.0"
+    }
+}
