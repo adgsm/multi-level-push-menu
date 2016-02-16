@@ -931,7 +931,10 @@
 					$selectedLevelHolders = instance.settings.container
 					.find( '#' + instance.settings.menuID + ' div.levelHolderClass' )
 					.filter(function(){
-						return ( ($( this ).children( 'h2' ).text() == menuTitle ) );
+						var text = $( this ).children( 'h2' ).text();
+						return ( menuTitle.constructor.name === "RegExp" ) ?
+							text.match(menuTitle) :
+							text === menuTitle.toString();
 					});
 				if( $selectedLevelHolders.length > 0 ) {
 					returnValue = $selectedLevelHolders;
@@ -951,7 +954,10 @@
 					$selectedItems = instance.settings.container
 					.find( '#' + instance.settings.menuID + ' div.levelHolderClass li' )
 					.filter(function(){
-						return ( ($( this ).children( 'a' ).text() == itemName ) );
+						var text = $( this ).children( 'a' ).text();
+						return ( itemName.constructor.name === "RegExp" ) ?
+							text.match(itemName) :
+							text === itemName.toString();
 					});
 				if( $selectedItems.length > 0 ) {
 					returnValue = $selectedItems;
