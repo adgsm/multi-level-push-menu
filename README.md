@@ -607,12 +607,14 @@ Full list of exposed metdods is provided below.
      * Provides collection of menu level objects matching provided menu title, or false if there is no match
      */
     $('#menu').multilevelpushmenu('findmenusbytitle', 'Devices');
-
+    $('#menu').multilevelpushmenu('findmenusbytitle', /devices/i);
+    
     /**
      * Find menu item(s) by name
      * Provides collection of menu item objects matching provided name, or false if there is no match
      */
     $( '#menu' ).multilevelpushmenu( 'finditemsbyname' , 'Devices' );
+    $( '#menu' ).multilevelpushmenu( 'finditemsbyname' , /devices/i );
 
     /**
      * Find path to root of selected menu level object
