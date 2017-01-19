@@ -932,7 +932,7 @@
 					.find( '#' + instance.settings.menuID + ' div.levelHolderClass' )
 					.filter(function(){
 						var text = $( this ).children( 'h2' ).text();
-						return ( menuTitle.constructor.name === "RegExp" ) ?
+						return ( Object.prototype.toString.call(menuTitle) === "[object RegExp]" ) ?
 							text.match(menuTitle) :
 							text === menuTitle.toString();
 					});
@@ -955,7 +955,7 @@
 					.find( '#' + instance.settings.menuID + ' div.levelHolderClass li' )
 					.filter(function(){
 						var text = $( this ).children( 'a' ).text();
-						return ( itemName.constructor.name === "RegExp" ) ?
+						return ( Object.prototype.toString.call(itemName) === "[object RegExp]" ) ?
 							text.match(itemName) :
 							text === itemName.toString();
 					});
