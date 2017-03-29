@@ -379,7 +379,7 @@
 				if( extRes == false ) return false;
 				if( $(instance).find( 'div.levelHolderClass' ).is(':animated') ) return false;
 				var level = ( $levelHolder.attr( 'data-level' ) > 0 ) ? $levelHolder.attr( 'data-level' ) - 1 : undefined;
-				if( emd.type == 'touchmove' && instance.settings.swipe != 'desktop' ) {
+				if( emd.type == 'touchmove' && (instance.settings.swipe === 'touchscreen' || instance.settings.swipe === 'both') ) {
 					stopEventPropagation( emd );
 					emd = ( emd.touches ) ? emd : emd.originalEvent;
 					if( !emd.touches || emd.touches.length <= 0 ) return false;
@@ -406,7 +406,7 @@
 						$levelHolder.swipeStart = 0;
 					}
 				}
-				else if( instance.settings.swipe != 'touchscreen' ) {
+				else if( emd.type == 'mousedown' && (instance.settings.swipe === 'desktop' || instance.settings.swipe === 'both')) {
 					stopEventPropagation( emd );
 					var significance = 0;
 					$levelHolder.unbind( 'mousemove' );

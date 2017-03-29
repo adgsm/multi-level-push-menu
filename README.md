@@ -513,7 +513,7 @@ Full list of options is provided below.
     preventGroupItemClick: true,                               // set to false if you do not need event callback functionality per group item click
     direction: 'ltr',                                          // set to 'rtl' for reverse sliding direction
     fullCollapse: false,                                       // set to true to fully hide base level holder when collapsed
-    swipe: 'both'                                              // or 'touchscreen', or 'desktop'
+    swipe: 'both'                                              // or 'touchscreen', or 'desktop', or 'none'. everything else is concidered as 'none'
 
 
 #### Using swipe on desktops
