@@ -1,19 +1,20 @@
 .mlpm_w {
-	position: absolute;
+	position: fixed;
 	overflow: hidden;
 	min-width: 100%;
-	min-height: 100%;
+	height: 100%;
 	margin: 0;
 	padding: 0;
 }
 
 .mlpm_w .levelHolderClass {
-	position: absolute;
-	overflow: hidden;
+	position: fixed;
 	top: 0;
 	background: #926738;
 	width: auto;
-	min-height: 100%;
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
 	font-family: 'Open Sans Condensed', sans-serif;
 	font-size: 1em;
 	zoom: 1;

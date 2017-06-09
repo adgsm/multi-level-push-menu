@@ -1,11 +1,11 @@
 $borderColor:#295685;
 .multilevelpushmenu_wrapper {
     margin: 0;
-    min-height: 100%;
+	height: 100%;
     min-width: 100%;
     overflow: hidden;
     padding: 0;
-    position: absolute;
+    position: fixed;
     .backItemClass {
         background: #2e6196;
         border-top: 1px solid #{$borderColor};
@@ -28,14 +28,15 @@ $borderColor:#295685;
         padding: 0 0 0 .4em;
     }
     .levelHolderClass {
-        background: #336ca6;
-        font-family: 'Open Sans Condensed', sans-serif;
-        font-size: 1em;
-        min-height: 100%;
-        overflow: hidden;
-        position: absolute;
-        top: 0;
-        width: auto;
+		position: fixed;
+		background: #336ca6;
+		font-family: 'Open Sans Condensed', sans-serif;
+		font-size: 1em;
+		min-height: 100%;
+		overflow-x: hidden;
+		overflow-y: auto;
+		top: 0;
+		width: auto;
         zoom: 1;
     }
     .ltr {
