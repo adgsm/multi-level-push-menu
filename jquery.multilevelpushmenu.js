@@ -626,6 +626,7 @@
 
 			// Collapse menu
 			function collapseMenu() {
+				
 				if( $(instance).find( 'div.levelHolderClass' ).is(':animated') ) return false;
 				instance.settings.onCollapseMenuStart.apply(this, Array.prototype.slice.call([instance.settings]));
 				var level = arguments[0],
@@ -660,7 +661,7 @@
 					.find( '#' + instance.settings.menuID + ' div.levelHolderClass' )
 					.filter(function(){
 						var retObjs = ( instance.settings.direction == 'rtl' ) ? 
-						($( this ).attr( 'data-level' ) > level) && (parseInt( $( this ).css( 'margin-right' ) ) >= 0 && $( this ).position().left < instance.settings.container.width() - instance.settings.overlapWidth )
+						($( this ).attr( 'data-level' ) > level) && (parseInt( $( this ).css( 'margin-right' ) ) >= 0 && $( this ).position().left - instance.settings.container.position().left < instance.settings.container.width() - instance.settings.overlapWidth )
 						:
 						($( this ).attr( 'data-level' ) > level) && (parseInt( $( this ).css( 'margin-left' ) ) >= 0 && $( this ).position().left >= 0 );
 						return retObjs;
@@ -669,7 +670,7 @@
 					.find( '#' + instance.settings.menuID + ' div.levelHolderClass' )
 					.filter(function(){
 						var retObjs = ( instance.settings.direction == 'rtl' ) ? 
-						($( this ).attr( 'data-level' ) <= level) && (parseInt( $( this ).css( 'margin-right' ) ) >= 0 && $( this ).position().left < instance.settings.container.width() - instance.settings.overlapWidth )
+						($( this ).attr( 'data-level' ) <= level) && (parseInt( $( this ).css( 'margin-right' ) ) >= 0 && $( this ).position().left - instance.settings.container.position().left < instance.settings.container.width() - instance.settings.overlapWidth )
 						:
 						($( this ).attr( 'data-level' ) <= level) && (parseInt( $( this ).css( 'margin-left' ) ) >= 0 && $( this ).position().left >= 0 );
 						return retObjs;
