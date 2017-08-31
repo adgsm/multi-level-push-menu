@@ -94,7 +94,7 @@
 
             <!-- Main component for a primary marketing message or call to action -->
             <div class="jumbotron">
-                <h1>Multi-level push menu v2.1.4</h1>
+                <h1>Multi-level push menu v2.1.4 <span class="made-by"><a href="https://ecm-dms.rs" target="_blank">ECM-DMS (BPM)</a></span></h1>
                 <p>Multi-level push menu is cross-browser compatible jQuery plug-in allowing endless nesting of navigation elements.</p>
                 <p>Following basic, lightweight release v1, version v2 brings number of
                 exposed plug-in methods (<a class="scroller" href="#methods"><i>NEW! Redraw, Visible menus, Hidden menus, Propagate events</i></a>), options (<a class="scroller" href="#examplefullexpandcollapse"><i>NEW! Full menu collapse</i></a>) and events/callbacks (<a class="scroller" href="#events"><i>onMenuReady and onMenuSwipe added</i></a>). Release v2 now supports native mobile events. (<a class="scroller" href="#video"><i>NEW! Expand/Collapse navigation with a left/right swipe gesture</i></a>)</p>
@@ -182,7 +182,7 @@
                     </video>
                 </video>
             </div>
-            
+
             <hr />
 
             <div id="usage">
@@ -772,7 +772,7 @@ $('#menu').multilevelpushmenu('option', 'mode', 'cover');
 
 /**
  * Add/Remove menu item(s) with sub-menus
- * 
+ *
  */
 // Add
 $('#menu').multilevelpushmenu( 'additems' , itemsArray , $addToMenu , position );
@@ -782,25 +782,25 @@ $('#menu').multilevelpushmenu( 'removeitems' , items );
 
 /**
  * Redraw menus
- * 
+ *
  */
 $('#menu').multilevelpushmenu( 'redraw' );
 
 /**
  * Visible menus
- * 
+ *
  */
 $('#menu').multilevelpushmenu( 'visiblemenus' );
 
 /**
  * Hidden menus
- * 
+ *
  */
 $('#menu').multilevelpushmenu( 'hiddenmenus' );
 
 /**
  * Propagate event to underneath layer
- * 
+ *
  */
  $( '#menu' ).multilevelpushmenu( 'propagateevent' , $( '#menu' ) , 'mousedown' );</code></pre>
                 <h3>Responsive menu example</h3>
@@ -1018,7 +1018,7 @@ $(document).ready(function(){
         // Collapse menu first to ensure good functionality after mode change
         $( '#menu' ).multilevelpushmenu( 'collapse', 0 );
         // Toggle mode
-        $( '#menu' ).multilevelpushmenu( 'option', 'mode') == 'overlap' ? 
+        $( '#menu' ).multilevelpushmenu( 'option', 'mode') == 'overlap' ?
             $( this ).find( 'span' ).text( $( '#menu' ).multilevelpushmenu( 'option', 'mode', 'cover' ) ) : $( this ).find( 'span' ).text( $( '#menu' ).multilevelpushmenu( 'option', 'mode', 'overlap' ) );
         // Update getMode button info
         $( '#getMode' ).find( 'span' ).text( $( '#menu' ).multilevelpushmenu( 'option', 'mode' ) );
@@ -1052,7 +1052,7 @@ $(document).ready(function(){
         // with same title, expand/collapse invoked with
         // title name as parameter won't work.
         $( '#menu' ).multilevelpushmenu( 'expand' , 'Men\'s Clothing' );
-        
+
         // More safe way is to use methods like
         // $( '#menu' ).multilevelpushmenu( 'findmenusbytitle' , 'Mobile Phones' );
         // and then invoke expand method with desired menu level object
@@ -1070,7 +1070,7 @@ $(document).ready(function(){
         // with same title, expand/collapse invoked with
         // title name as parameter won't work.
         $( '#menu' ).multilevelpushmenu( 'expand' , 'Mobile Phones' );
-        
+
         // More safe way is to use methods like
         // $( '#menu' ).multilevelpushmenu( 'findmenusbytitle' , 'Mobile Phones' );
         // and then invoke expand method with desired menu level object

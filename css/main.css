@@ -127,6 +127,14 @@ button, input, select, textarea {
     background-color: #fff;
 }
 
+.made-by {
+	font-size: 1em;
+}
+
+	.made-by a {
+		color: #428bca;
+		text-decoration: none;
+	}
 /* ==========================================================================
    Helper classes
    ========================================================================== */
