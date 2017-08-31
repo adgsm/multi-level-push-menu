@@ -1,5 +1,5 @@
 # Multi-level-push-menu
-by [https://ecm-dms.rs](ECM-DMS / BPM)
+by [ECM-DMS (BPM)](https://ecm-dms.rs)
 
 This jQuery plugin is inspired by [Codrops](http://tympanus.net/codrops/2013/08/13/multi-level-push-menu/) MultiLevelPushMenu but unlike it not relaying on CSS 3D Transforms and therefore functional in older browsers too (i.e. IE 8).
 
