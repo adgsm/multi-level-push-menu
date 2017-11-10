@@ -110,3 +110,8 @@
 .multilevelpushmenu_wrapper .iconSpacing_rtl {
 	padding: 0 0 0 .4em;
 }
+
+.multilevelpushmenu_wrapper h2 > img,
+.multilevelpushmenu_wrapper a > img {
+    max-height: 1em;
+}

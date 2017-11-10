@@ -191,6 +191,9 @@
 						.attr( { "style" : "text-align: " + ( ( instance.settings.direction == 'rtl' ) ? "right" : "left" ) } )
 					    .text( this.title )
 					    .appendTo( $levelHolder ),
+                        $titleImage = $( "<img />" )
+                        .prop( { "class" : ( ( instance.settings.direction == 'rtl' ) ? "floatLeft" : "floatRight" ) + " cursorPointer", "src" : this.image } )
+                        .prependTo( $title ),
 					    $titleIcon = $( "<i />" )
 					    .prop( { "class" : ( ( instance.settings.direction == 'rtl' ) ? "floatLeft" : "floatRight" ) + " cursorPointer " + this.icon } )
 					    .prependTo( $title );
@@ -350,6 +353,9 @@
 				    .prop( { "href" : item.link } )
 				    .text( item.name )
 				    .appendTo( $item ),
+                    $itemImage = $( "<img />" )
+                    .prop( { "class" : ( ( instance.settings.direction == 'rtl' ) ? "floatLeft" : "floatRight" ), "src" : item.image })
+                    .prependTo( $itemAnchor ),
 				    $itemIcon = $( "<i />" )
 					.prop( { "class" : ( ( instance.settings.direction == 'rtl' ) ? "floatLeft " : "floatRight " ) + item.icon } )
 				    .prependTo( $itemAnchor );
