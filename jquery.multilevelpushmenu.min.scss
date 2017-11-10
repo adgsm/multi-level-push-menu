@@ -66,6 +66,9 @@ $borderColor:#295685;
         overflow: hidden;
         padding: .2em .2em;
         text-decoration: none;
+		img {
+			max-height: 1em;
+		}
     }
     a:hover {
         color: #ffe;
@@ -76,6 +79,9 @@ $borderColor:#295685;
         font-weight: bold;
         line-height: 1em;
         padding: 0 .4em 0 .4em;
+		img {
+			max-height: 1em;
+		}
     }
     li {
         border-top: 1px solid #{$borderColor};
