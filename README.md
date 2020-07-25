@@ -1,10 +1,10 @@
 # Multi-level-push-menu
-by [ECM-DMS (BPM)](https://ecm-dms.rs)
+by Momcilo Dzunic
 
 This jQuery plugin is inspired by [Codrops](http://tympanus.net/codrops/2013/08/13/multi-level-push-menu/) MultiLevelPushMenu but unlike it not relaying on CSS 3D Transforms and therefore functional in older browsers too (i.e. IE 8).
 
-### Documentation, examples and code samples [http://multi-level-push-menu.make.rs](http://multi-level-push-menu.make.rs)
-![](http://multi-level-push-menu.make.rs/img/menu.png)
+### Documentation, examples and code samples [http://multi-level-push-menu.dzunic.net](http://multi-level-push-menu.dzunic.net)
+![](http://multi-level-push-menu.dzunic.net/img/menu.png)
 
 ### Features
 * Multi-level menu support
